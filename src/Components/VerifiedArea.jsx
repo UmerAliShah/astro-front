@@ -1,11 +1,12 @@
-import Footer from "./Footer";
 import { useNavigate } from "react-router-dom";
+import apiClient from "../api/apiClient";
 
 const VerifiedArea = () => {
   const navigate = useNavigate();
   const handleAnotherProduct = () => {
     navigate("/");
   };
+  const {request, loading, error}= apiClient.get("/prod")
   return (
     <div className="row">
       <div className="col-12">

@@ -1,7 +1,7 @@
-import Header from "../../Components/Header";
-import ErrorArea from "../../Components/ErrorArea";
+import Header from "../../components/Header";
+import ErrorArea from "../../components/ErrorArea";
 import BackgroundImg from "../../assets/background-error.png";
-import Footer from "../../Components/Footer";
+import Footer from "../../components/Footer";
 const Error = () => {
   const styles = {
     backgroundImage: `url(${BackgroundImg})`,

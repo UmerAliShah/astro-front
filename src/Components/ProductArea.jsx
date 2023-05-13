@@ -1,4 +1,18 @@
+import { useEffect, useState } from "react";
+import apiClient from "../api/apiClient";
+
 const ProductArea = () => {
+  const [products, setProducts] = useState([]);
+
+  const fetchProducts = async () => {
+    const res = await apiClient.get("/product");
+    if (res.status === 200) {
+      setProducts(res.data);
+    }
+  };
+  useEffect(() => {
+    fetchProducts();
+  }, []);
   return (
     <div className="col-12">
       <div className="row productArea">
@@ -14,41 +28,13 @@ const ProductArea = () => {
         </div>
         <div className="col-md-6 col-sm-12 products">
           <div className="row pb-4  mt-2 justify-content-lg-start justify-content-center">
-            <div className="col-2 px-sm-2 p-0">
-              <img
-                src={require("../assets/1.png")}
-                className="img-fluid w-50"
-                alt=""
-              />
-            </div>
-            <div className="col-2  px-sm-2 p-0">
-              <img
-                src={require("../assets/2.png")}
-                className="img-fluid w-50"
-                alt=""
-              />
-            </div>
-            <div className="col-2  px-sm-2 p-0">
-              <img
-                src={require("../assets/3.png")}
-                className="img-fluid w-50"
-                alt=""
-              />
-            </div>
-            <div className="col-2  px-sm-2 p-0">
-              <img
-                src={require("../assets/4.png")}
-                className="img-fluid w-50"
-                alt=""
-              />
-            </div>
-            <div className="col-2  px-sm-2 p-0">
-              <img
-                src={require("../assets/5.png")}
-                className="img-fluid w-50"
-                alt=""
-              />
-            </div>
+            {products?.map((data, index) => {
+              return (
+                <div className="col-2 px-sm-2 p-0">
+                  <img src={data?.image} className="img-fluid w-50" alt="" />
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

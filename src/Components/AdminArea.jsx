@@ -68,6 +68,17 @@ const AdminArea = (props) => {
             />
           </ListItemButton>
         </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton>
+            <ListItemIcon></ListItemIcon>
+            <ListItemText
+              onClick={() => {
+                navigate("/all-products");
+              }}
+              primary="All products"
+            />
+          </ListItemButton>
+        </ListItem>
       </List>
     </div>
   );

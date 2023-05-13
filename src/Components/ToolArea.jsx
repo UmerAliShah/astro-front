@@ -2,12 +2,41 @@ import { useState } from "react";
 import Footer from "./Footer";
 import ProductArea from "./ProductArea";
 import { useNavigate } from "react-router-dom";
+import useApi from "../hooks/useApi";
+import apiClient from "../api/apiClient";
+import { toast } from "react-toastify";
 
 const ToolArea = () => {
   const [verify, setVerify] = useState();
+  console.log(verify, "verify");
   const navigate = useNavigate();
-  const handleverify = () => {
-    navigate("/verified");
+  const { request, loading, error } = useApi((data) =>
+    apiClient.post("/codes/verify", { key: data })
+  );
+  const handleverify = async (e) => {
+    e.preventDefault();
+    const loadingToast = toast.loading(
+      "Verifying product. This process may take a few minutes.",
+      {
+        autoClose: false,
+        hideProgressBar: true,
+      }
+    );
+    const result = await request(verify);
+    if (result.status === 200) {
+      toast.dismiss(loadingToast);
+      navigate("/verified");
+      toast.success("Product Verified", {
+        autoClose: 3000,
+        hideProgressBar: false,
+      });
+    } else {
+      toast.dismiss(loadingToast);
+      toast.error("Something Went Wrong!", {
+        autoClose: 3000,
+        hideProgressBar: false,
+      });
+    }
   };
 
   return (
@@ -18,9 +47,12 @@ const ToolArea = () => {
             Please enter the 6 digit scratch off code to verify this product
           </b>
         </h4>
-        <form className="text-center">
+        <form onSubmit={handleverify} className="text-center">
           <div>
-            <label className="form-label verificationCode" htmlFor="verificationCode">
+            <label
+              className="form-label verificationCode"
+              htmlFor="verificationCode"
+            >
               <b> VERIFICATION CODE</b>
             </label>
             <input
@@ -29,16 +61,11 @@ const ToolArea = () => {
               type="text"
               value={verify}
               maxLength={6}
-              disabled={verify?.length >= 6}
               placeholder="aBc2GP"
               onChange={(e) => setVerify(e.target.value)}
             />
           </div>
-          <button
-            onClick={() => handleverify()}
-            type="submit"
-            className="mx-auto rounded-pill verifyButton"
-          >
+          <button type="submit" className="mx-auto rounded-pill verifyButton">
             <b>VERIFY</b>
           </button>
         </form>

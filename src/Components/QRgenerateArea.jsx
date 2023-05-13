@@ -1,129 +1,218 @@
 import { useState } from "react";
-import QRCode from "qrcode.react";
+import * as XLSX from "xlsx/xlsx";
+import VerificationCodesTable from "./CodeTable";
+import useApi from "../hooks/useApi";
+import apiClient from "../api/apiClient";
+import { toast } from "react-toastify";
 
 const QRarea = () => {
-  const [rangeStart, setRangeStart] = useState("");
-  const [rangeEnd, setRangeEnd] = useState("");
-  const [prefix, setPrefix] = useState("GP");
+  const [batchID, setBatchID] = useState("");
+  const [range, setRange] = useState("");
+  const [postfix, setPostfix] = useState("GP");
+  const [keyLength, setKeyLength] = useState(4);
+  const [chracterSet, setChracterSet] = useState(
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789"
+  );
   const [keys, setKeys] = useState([]);
-  console.log(rangeStart, rangeEnd, prefix, keys, "test");
 
-  const generateKeys = () => {
-    const start = parseInt(rangeStart);
-    const end = parseInt(rangeEnd);
-    const generatedKeys = [];
-
-    for (let i = start; i <= end; i++) {
-      const code = `${prefix}${i.toString().padStart(6, "0")}`;
-      const key = `${code}${getRandomAlphabet()}${getRandomAlphabet()}`;
-      generatedKeys.push(key);
+  function generateVerificationCodes() {
+    const flavour = postfix.toUpperCase();
+    let newKeys = [];
+    for (let i = 0; i < range; i++) {
+      const prefix = generateRandomString(keyLength);
+      const key = prefix + flavour;
+      newKeys.push(key);
     }
+    setKeys([...keys, ...newKeys]);
+    console.log(newKeys); // Output: ["a2BcGP", "e9FzGP", ...]
+  }
 
-    setKeys(generatedKeys);
-  };
+  function generateRandomString(length) {
+    const characters = chracterSet;
+    let result = "";
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(
+        Math.floor(Math.random() * characters.length)
+      );
+    }
+    return result;
+  }
 
-  const getRandomAlphabet = () => {
-    const alphabet = "abcdefghijklmnopqrstuvwxyz";
-    const index = Math.floor(Math.random() * alphabet.length);
-    return alphabet[index];
-  };
+  function exportCodes() {
+    const data = [["Index", "Verification Code", "Batch ID"]];
+    keys?.forEach((code, index) => {
+      const rowData = [index + 1, code, batchID];
+      data.push(rowData);
+    });
 
-  const saveKeys = () => {
-    // Here you can make a fetch call to your backend to save the generated keys to the database
-    console.log("Saving keys to database:", keys);
-  };
-  const styles = {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    fontSize: "25px",
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.aoa_to_sheet(data);
+    XLSX.utils.book_append_sheet(wb, ws, "Verification Codes");
+    XLSX.writeFile(wb, "verification_codes.xlsx");
+  }
+
+  const { request, loading, error } = useApi((data) =>
+    apiClient.post("/codes", data)
+  );
+
+  const saveKeys = async () => {
+    const loadingToast = toast.loading(
+      "Uploading Keys. This process may take a few minutes.",
+      {
+        autoClose: false,
+        hideProgressBar: true,
+      }
+    );
+    const data = {
+      batchId: batchID,
+      keys,
+    };
+    const result = await request(data);
+    if (result.status === 200) {
+      setKeys([]);
+      toast.dismiss(loadingToast);
+      toast.success("Keys Submitted", {
+        autoClose: 3000,
+        hideProgressBar: false,
+      });
+    } else {
+      toast.dismiss(loadingToast);
+      toast.error("Something Went Wrong!", {
+        autoClose: 3000,
+        hideProgressBar: false,
+      });
+    }
   };
 
   return (
-    <>
-      <div className="container-fluid">
-        <div className="row">
-          <h2 className="text-center fs-1 my-4 mb-5">Key Generator</h2>
-          <div className="col-12" style={styles}>
-            <form onSubmit={(e) => e.preventDefault()}>
-              <div class="row">
-                <div class="col">
-                  <div class="form-outline">
-                    <label class="form-label" for="form6Example1">
-                      Range Start:
-                    </label>
-                    <input
-                      type="number"
-                      value={rangeStart}
-                      onChange={(e) => setRangeStart(e.target.value)}
-                      id="form6Example1"
-                      class="form-control"
-                    />
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="form-outline">
-                    <label class="form-label" for="form6Example2">
-                      Range End:
-                    </label>
-                    <input
-                      type="number"
-                      value={rangeEnd}
-                      onChange={(e) => setRangeEnd(e.target.value)}
-                      id="form6Example2"
-                      class="form-control"
-                    />
-                  </div>
-                </div>
-                <div class="form-outline mb-4">
-                  <label class="form-label" for="form6Example7">
-                    Prefix:
+    <div className="container">
+      <div className="row">
+        <h2 className="text-center fs-1 mb-3">
+          <b> Key Generator </b>
+        </h2>
+        <div className="col">
+          <form onSubmit={(e) => e.preventDefault()}>
+            <div className="row">
+              <div className="col-12 mb-4">
+                <div className="form-outline">
+                  <label class="form-label" for="form6Example1">
+                    <b>No of codes</b>
                   </label>
                   <input
-                    type="text"
-                    value={prefix}
-                    onChange={(e) => setPrefix(e.target.value)}
+                    type="number"
+                    max={5000}
+                    value={range}
+                    onChange={(e) => setRange(e.target.value)}
+                    id="form6Example1"
                     class="form-control"
-                    id="form6Example7"
-                    rows="4"
                   />
                 </div>
               </div>
-              <div className="justify-content-center d-flex">
-                <button
-                  onClick={() => generateKeys()}
-                  class="verifyButton btn-block fs-3 mb-4 rounded-pill px-4"
-                >
-                  Generate Keys
-                </button>
-              </div>
-              <div className="border border-2 border-dark keysArea">
-                <div className=" w-100">
-                  {keys?.map((key, index) => (
-                    <ul className="list-group list-group-flush border">
-                      <li key={key} className="list-group-item bg-light">
-                        {index + 1} - {key}
-                      </li>
-                    </ul>
-                  ))}
+              <div className="col-12 mb-4">
+                <div className="form-outline">
+                  <label class="form-label" for="form6Example1">
+                    <b>Single code length</b>
+                  </label>
+                  <input
+                    type="number"
+                    max={4}
+                    value={keyLength}
+                    onChange={(e) => setKeyLength(e.target.value)}
+                    class="form-control"
+                    id="form6Example7"
+                  />
                 </div>
               </div>
-              <div className="justify-content-center d-flex">
-                {keys.length > 0 && (
-                  <button
-                    className="verifyButton fs-5 rounded-pill px-4"
-                    type="button"
-                    onClick={saveKeys}
-                  >
-                    Save Keys
-                  </button>
-                )}
+              <div className="col-12 mb-4">
+                <div className="form-outline">
+                  <label class="form-label" for="form6Example1">
+                    <b>Chracter set</b>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder={chracterSet}
+                    value={chracterSet}
+                    onChange={(e) => setChracterSet(e.target.value)}
+                    class="form-control"
+                    id="form6Example7"
+                  />
+                </div>
               </div>
-            </form>
-          </div>
+              <div className="col-12 mb-4">
+                <div className="form-outline">
+                  <label class="form-label" for="form6Example1">
+                    <b>Batch id</b>
+                  </label>
+                  <input
+                    type="text"
+                    value={batchID}
+                    onChange={(e) => setBatchID(e.target.value)}
+                    class="form-control"
+                    id="form6Example7"
+                  />
+                </div>
+              </div>
+              <div className="col-12 mb-4">
+                <div className="form-outline">
+                  <label class="form-label" for="form6Example7">
+                    <b> Postfix</b>
+                  </label>
+                  <input
+                    type="text"
+                    value={postfix}
+                    onChange={(e) => setPostfix(e.target.value)}
+                    class="form-control"
+                    id="form6Example7"
+                  />
+                </div>
+              </div>
+            </div>
+            {!keys.length && (
+              <button
+                onClick={() => generateVerificationCodes()}
+                type="button"
+                class="btn btn-light text-primary ms-2 border border-1 py-4 px-4"
+              >
+                <b> Generate code </b>
+              </button>
+            )}
+          </form>
         </div>
+        {keys?.length ? (
+          <>
+            <div className="row">
+              <h2 className="text-black text-center mb-5">
+                <b>Generated codes</b>
+              </h2>
+              <div className="col-6 text-end">
+                <button
+                  onClick={() => exportCodes()}
+                  className="btn btn-light border border-1 py-3 px-4 text-primary"
+                >
+                  <b> Export to excel</b>
+                </button>
+              </div>
+              <div className="col-6">
+                <button
+                  onClick={() => saveKeys()}
+                  className="btn btn-light border border-1 py-3 px-4 mb-3 text-primary"
+                >
+                  <b> Save in DataBase</b>
+                </button>
+              </div>
+              <div
+                className="col-12"
+                style={{ overflowY: "scroll", height: "300px" }}
+              >
+                <VerificationCodesTable codes={keys} batchID={batchID} />
+              </div>
+            </div>
+          </>
+        ) : (
+          ""
+        )}
       </div>
-    </>
+    </div>
   );
 };
 

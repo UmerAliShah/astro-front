@@ -7,16 +7,21 @@ import {
 import Main from "./pages/Main/Main";
 import Verified from "./pages/Verified/Verified";
 import Error from "./pages/Error/Error";
-import Login from "./Components/LoginArea";
+import Login from "./components/LoginArea";
 import Admin from "./pages/Admin/Admin";
 import { useSelector } from "react-redux";
-import CreateProduct from "./Components/ProductCreationArea";
-import QRarea from "./Components/QRgenerateArea";
-import AdminArea from "./Components/AdminArea";
+import CreateProduct from "./components/ProductCreationArea";
+import QRarea from "./components/QRgenerateArea";
+import AdminArea from "./components/AdminArea";
+import AllProducts from "./components/AllProducts";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const App = () => {
   const { user } = useSelector((state) => state.auth);
   return (
     <Router>
+      <ToastContainer />
       <Routes>
         {!user?.isAdmin ? (
           <Route path="/" element={<Main />} />
@@ -35,6 +40,7 @@ const App = () => {
           <Route element={<AdminArea />}>
             <Route path="/createProduct" element={<CreateProduct />} />
             <Route path="/generateQR" element={<QRarea />} />
+            <Route path="/all-products" element={<AllProducts />} />
           </Route>
         ) : (
           <Route path="/*" element={<Main />} />
