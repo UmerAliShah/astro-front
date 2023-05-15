@@ -23,13 +23,24 @@ const ToolArea = () => {
       }
     );
     const result = await request(verify);
+    console.log(result, "res");
     if (result.status === 200) {
       toast.dismiss(loadingToast);
-      navigate("/verified");
+      navigate("/verified", {
+        state: { product: verify },
+      });
       toast.success("Product Verified", {
         autoClose: 3000,
         hideProgressBar: false,
       });
+    } else if (result.status === 400) {
+      toast.error(result?.data?.error);
+      toast.dismiss(loadingToast);
+      navigate("/already-used");
+    } else if (result.status === 404) {
+      toast.error(result?.data?.error);
+      toast.dismiss(loadingToast);
+      navigate("/error");
     } else {
       toast.dismiss(loadingToast);
       toast.error("Something Went Wrong!", {

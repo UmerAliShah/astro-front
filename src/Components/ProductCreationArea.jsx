@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import useApi from "../hooks/useApi";
 import apiClient from "../api/apiClient";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const CreateProduct = () => {
   const { state } = useLocation();
+  const navigate = useNavigate();
   useEffect(() => {
     setData(state?.product);
   }, [state]);
@@ -70,6 +71,9 @@ const CreateProduct = () => {
         autoClose: 3000,
         hideProgressBar: false,
       });
+    } else if (result.status === 403) {
+      toast.dismiss(loadingToast);
+      toast.error(result.data.error);
     } else {
       toast.dismiss(loadingToast);
       toast.error("Something Went Wrong!", {
@@ -100,6 +104,7 @@ const CreateProduct = () => {
       }
     );
     if (result.status === 200) {
+      navigate("/all-products");
       setData(initialState);
       toast.dismiss(loadingToast);
       toast.success("Product Submitted", {
@@ -135,11 +140,12 @@ const CreateProduct = () => {
                     <b> Product Name</b>
                   </label>
                   <input
+                    required
                     value={data?.name}
                     onChange={(e) => handleChange("name", e.target.value)}
                     type="text"
                     id="form6Example1"
-                    class="form-control py-3"
+                    class="form-control "
                   />
                 </div>
               </div>
@@ -149,11 +155,12 @@ const CreateProduct = () => {
                     <b> Product Size </b>
                   </label>
                   <input
+                    required
                     value={data?.size}
                     onChange={(e) => handleChange("size", e.target.value)}
                     type="text"
                     id="form6Example2"
-                    class="form-control py-3"
+                    class="form-control "
                   />
                 </div>
               </div>
@@ -163,11 +170,12 @@ const CreateProduct = () => {
                     <b> Product Postfix</b>
                   </label>
                   <input
+                    required
                     value={data?.code}
                     onChange={(e) => handleChange("code", e.target.value)}
                     type="text"
                     id="form6Example2"
-                    class="form-control py-3"
+                    class="form-control "
                   />
                 </div>
               </div>
@@ -176,6 +184,7 @@ const CreateProduct = () => {
                   <b> Product Description</b>
                 </label>
                 <textarea
+                  required
                   value={data?.description}
                   onChange={(e) => handleChange("description", e.target.value)}
                   class="form-control"
@@ -201,7 +210,7 @@ const CreateProduct = () => {
                     </b>
                   </label>
                   <div className="col-6">
-                    <div class="btn btn-primary py-3 px-4">
+                    <div class="btn btn-primary  px-4">
                       <label
                         class="form-label text-white my-1"
                         for="customFile1"

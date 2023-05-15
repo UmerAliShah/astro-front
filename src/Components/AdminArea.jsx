@@ -29,12 +29,13 @@ const drawerWidth = 240;
 const AdminArea = (props) => {
   const dispatch = useDispatch();
   const handleLogout = () => {
-    console.log("cloickwed");
     dispatch(logout());
   };
   const navigate = useNavigate();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [activePath, setActivePath] = useState("");
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -46,42 +47,58 @@ const AdminArea = (props) => {
     <div>
       <Toolbar />
       <List>
-        <ListItem disablePadding>
+        <ListItem
+          onClick={() => {
+            navigate("/createProduct");
+            setActivePath("/createProduct");
+          }}
+          className={activePath === "/createProduct" ? "active" : ""}
+        >
           <ListItemButton>
             <ListItemIcon></ListItemIcon>
-            <ListItemText
-              onClick={() => {
-                navigate("/createProduct");
-              }}
-              primary="Create Product"
-            />
+            <ListItemText primary="Create Product" />
           </ListItemButton>
         </ListItem>
-        <ListItem disablePadding>
+        <ListItem
+          onClick={() => {
+            navigate("/generateQR");
+            setActivePath("/generateQR");
+          }}
+          className={activePath === "/generateQR" ? "active" : ""}
+        >
           <ListItemButton>
             <ListItemIcon></ListItemIcon>
-            <ListItemText
-              onClick={() => {
-                navigate("/generateQR");
-              }}
-              primary="Generate Product Qr"
-            />
+            <ListItemText primary="Generate Product Qr" />
           </ListItemButton>
         </ListItem>
-        <ListItem disablePadding>
+        <ListItem
+          onClick={() => {
+            navigate("/all-products");
+            setActivePath("/all-products");
+          }}
+          className={activePath === "/all-products" ? "active" : ""}
+        >
           <ListItemButton>
             <ListItemIcon></ListItemIcon>
-            <ListItemText
-              onClick={() => {
-                navigate("/all-products");
-              }}
-              primary="All products"
-            />
+            <ListItemText primary="All products" />
+          </ListItemButton>
+        </ListItem>
+        <ListItem
+          onClick={() => {
+            navigate("/all-keys");
+            setActivePath("/all-keys");
+          }}
+          className={activePath === "/all-keys" ? "active" : ""}
+        >
+          <ListItemButton>
+            <ListItemIcon></ListItemIcon>
+            <ListItemText primary="All keys" />
           </ListItemButton>
         </ListItem>
       </List>
     </div>
   );
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -102,7 +119,13 @@ const AdminArea = (props) => {
           >
             <MenuIcon />
           </IconButton>
-          <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "center" }}>
+          <Box
+            onClick={() => {
+              navigate("/");
+              setActivePath("");
+            }}
+            sx={{ flexGrow: 1, display: "flex", justifyContent: "center" }}
+          >
             <img src={require("../assets/logo.png")} alt="logo" height={50} />
           </Box>
 

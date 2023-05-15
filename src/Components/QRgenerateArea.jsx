@@ -14,20 +14,26 @@ const QRarea = () => {
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789"
   );
   const [keys, setKeys] = useState([]);
+  const [loadingCode, setLoadingCode] = useState(false);
 
   function generateVerificationCodes() {
+    setLoadingCode(true);
     const flavour = postfix.toUpperCase();
     let newKeys = [];
+
     for (let i = 0; i < range; i++) {
       const prefix = generateRandomString(keyLength);
       const key = prefix + flavour;
       newKeys.push(key);
     }
-    setKeys([...keys, ...newKeys]);
-    console.log(newKeys); // Output: ["a2BcGP", "e9FzGP", ...]
+
+    setTimeout(() => {
+      setKeys([...keys, ...newKeys]);
+      setLoadingCode(false);
+    }, 1000);
   }
 
-  function generateRandomString(length) {
+  const generateRandomString = (length) => {
     const characters = chracterSet;
     let result = "";
     for (let i = 0; i < length; i++) {
@@ -36,9 +42,9 @@ const QRarea = () => {
       );
     }
     return result;
-  }
+  };
 
-  function exportCodes() {
+  const exportCodes = () => {
     const data = [["Index", "Verification Code", "Batch ID"]];
     keys?.forEach((code, index) => {
       const rowData = [index + 1, code, batchID];
@@ -49,7 +55,7 @@ const QRarea = () => {
     const ws = XLSX.utils.aoa_to_sheet(data);
     XLSX.utils.book_append_sheet(wb, ws, "Verification Codes");
     XLSX.writeFile(wb, "verification_codes.xlsx");
-  }
+  };
 
   const { request, loading, error } = useApi((data) =>
     apiClient.post("/codes", data)
@@ -99,6 +105,7 @@ const QRarea = () => {
                     <b>No of codes</b>
                   </label>
                   <input
+                    required
                     type="number"
                     max={5000}
                     value={range}
@@ -114,6 +121,7 @@ const QRarea = () => {
                     <b>Single code length</b>
                   </label>
                   <input
+                    required
                     type="number"
                     max={4}
                     value={keyLength}
@@ -129,6 +137,7 @@ const QRarea = () => {
                     <b>Chracter set</b>
                   </label>
                   <input
+                    required
                     type="text"
                     placeholder={chracterSet}
                     value={chracterSet}
@@ -144,6 +153,7 @@ const QRarea = () => {
                     <b>Batch id</b>
                   </label>
                   <input
+                    required
                     type="text"
                     value={batchID}
                     onChange={(e) => setBatchID(e.target.value)}
@@ -158,6 +168,7 @@ const QRarea = () => {
                     <b> Postfix</b>
                   </label>
                   <input
+                    required
                     type="text"
                     value={postfix}
                     onChange={(e) => setPostfix(e.target.value)}
@@ -167,9 +178,19 @@ const QRarea = () => {
                 </div>
               </div>
             </div>
+            <div className="text-center">
+              {loadingCode && (
+                <span class="spinner-border" role="status">
+                  <span class="sr-only"></span>
+                </span>
+              )}
+            </div>
             {!keys.length && (
               <button
-                onClick={() => generateVerificationCodes()}
+                onClick={() => {
+                  generateVerificationCodes();
+                }}
+                disabled={loadingCode}
                 type="button"
                 class="btn btn-light text-primary ms-2 border border-1 py-4 px-4"
               >
@@ -178,6 +199,7 @@ const QRarea = () => {
             )}
           </form>
         </div>
+
         {keys?.length ? (
           <>
             <div className="row">
