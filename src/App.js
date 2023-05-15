@@ -8,17 +8,17 @@ import Main from "./pages/Main/Main";
 import Verified from "./pages/Verified/Verified";
 import Error from "./pages/Error/Error";
 import AlreadyUsed from "./pages/Error/AlreadyUSed";
-import Login from "./components/LoginArea";
+import Login from "./Components/LoginArea";
 import Admin from "./pages/Admin/Admin";
 import { useSelector } from "react-redux";
-import CreateProduct from "./components/ProductCreationArea";
-import QRarea from "./components/QRgenerateArea";
-import AdminArea from "./components/AdminArea";
-import AllProducts from "./components/AllProducts";
-import AllKeys from "./components/AllKeys";
+import CreateProduct from "./Components/ProductCreationArea";
+import QRarea from "./Components/QRgenerateArea";
+import AdminArea from "./Components/AdminArea";
+import AllProducts from "./Components/AllProducts";
+import AllKeys from "./Components/AllKeys";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import AdminMainArea from "./components/AdminMainArea";
+import AdminMainArea from "./Components/AdminMainArea";
 
 const App = () => {
   const { user } = useSelector((state) => state.auth);
