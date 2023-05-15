@@ -42,7 +42,7 @@ const App = () => {
         <Route path="/already-used" element={<AlreadyUsed />} />
         {user?.isAdmin ? (
           <Route element={<AdminArea />}>
-            <Route path="/" element={<AdminMainArea/>} />
+            <Route path="/" element={<AdminMainArea />} />
             <Route path="/createProduct" element={<CreateProduct />} />
             <Route path="/generateQR" element={<QRarea />} />
             <Route path="/all-products" element={<AllProducts />} />
