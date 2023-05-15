@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import "../../App.css";
-import Footer from "../../components/Footer";
-import Header from "../../components/Header";
-import ToolArea from "../../components/ToolArea";
+import Footer from "../../Components/Footer";
+import Header from "../../Components/Header";
+import ToolArea from "../../Components/ToolArea";
 import BackgroundImg from "../../assets/background-toolarea.png";
 import HeaderLogo from "../../assets/mainPageLogo.png";
 

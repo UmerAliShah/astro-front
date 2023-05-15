@@ -1,6 +1,6 @@
-import Footer from "../../components/Footer";
-import Header from "../../components/Header";
-import VerifiedArea from "../../components/VerifiedArea";
+import Footer from "../../Components/Footer";
+import Header from "../../Components/Header";
+import VerifiedArea from "../../Components/VerifiedArea";
 import BackgroundImg from "../../assets/background-verified.png";
 
 const verified = () => {
