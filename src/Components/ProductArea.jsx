@@ -5,7 +5,7 @@ const ProductArea = () => {
   const [products, setProducts] = useState([]);
 
   const fetchProducts = async () => {
-    const res = await apiClient.get("/product/");
+    const res = await apiClient.get("/product");
     if (res.status === 200) {
       setProducts(res.data);
     }
