@@ -32,7 +32,6 @@ const VerifiedArea = () => {
       setActivatedDate(formattedDate);
       const { batchId } = batch;
       setBatchData(batchId?.BatchID);
-      console.log(product, batchId, "res");
     }
   };
   return (

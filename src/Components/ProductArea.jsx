@@ -1,12 +1,20 @@
 import { useEffect, useState } from "react";
 import apiClient from "../api/apiClient";
+import { Swiper, SwiperSlide } from "swiper/react";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import { Pagination } from "swiper";
 
 const ProductArea = () => {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const fetchProducts = async () => {
+    setLoading(true);
     const res = await apiClient.get("/product");
     if (res.status === 200) {
+      setLoading(false);
       setProducts(res.data);
     }
   };
@@ -28,13 +36,37 @@ const ProductArea = () => {
         </div>
         <div className="col-md-6 col-sm-12 products">
           <div className="row pb-4  mt-2 justify-content-lg-start justify-content-center">
-            {products?.map((data, index) => {
-              return (
-                <div className="col-2 px-sm-2 p-0">
-                  <img src={data?.image} className="img-fluid w-50" alt="" />
-                </div>
-              );
-            })}
+            {loading && (
+              <div className="d-flex align-items-center justify-content-center">
+                <span class="spinner-border" role="status">
+                  <span class="sr-only"></span>
+                </span>
+              </div>
+            )}
+            <Swiper
+              slidesPerView={5}
+              spaceBetween={0}
+              centeredSlides={true}
+              pagination={{
+                clickable: true,
+              }}
+              modules={[Pagination]}
+              className="mySwiper"
+            >
+              {products?.map((data, index) => {
+                return (
+                  <SwiperSlide>
+                    <div className="col-6 py-4 p-0">
+                      <img
+                        src={data?.image}
+                        className="img-fluid w-50"
+                        alt=""
+                      />
+                    </div>
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
           </div>
         </div>
       </div>

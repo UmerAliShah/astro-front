@@ -81,6 +81,9 @@ const QRarea = () => {
         autoClose: 3000,
         hideProgressBar: false,
       });
+    } else if (result.status == 300) {
+      toast.dismiss(loadingToast);
+      toast.error(result.data.error);
     } else {
       toast.dismiss(loadingToast);
       toast.error("Something Went Wrong!", {

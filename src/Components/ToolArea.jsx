@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 
 const ToolArea = () => {
   const [verify, setVerify] = useState();
-  console.log(verify, "verify");
   const navigate = useNavigate();
   const { request, loading, error } = useApi((data) =>
     apiClient.post("/codes/verify", { key: data })
@@ -23,7 +22,6 @@ const ToolArea = () => {
       }
     );
     const result = await request(verify);
-    console.log(result, "res");
     if (result.status === 200) {
       toast.dismiss(loadingToast);
       navigate("/verified", {
