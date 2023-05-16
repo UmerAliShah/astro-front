@@ -62,18 +62,18 @@ const VerifiedArea = () => {
             </div>
             <div>
               <b>Name:</b>
-              {` ${productData.name}`}
+              {` ${productData?.name}`}
             </div>
             <div className="my-4">
               <b>Activated:</b>
               {` ${activatedDate}`}
             </div>
             <div className="my-4">
-              <b>Size:</b> {` ${productData.size}`}
+              <b>Size:</b> {` ${productData?.size}`}
             </div>
             <div>
               <b>Description:</b>
-              {` ${productData.description}`}
+              {` ${productData?.description}`}
             </div>
           </div>
           <button

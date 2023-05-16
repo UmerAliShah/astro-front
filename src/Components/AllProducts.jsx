@@ -23,6 +23,7 @@ const Products = () => {
   const handleDelete = async (data) => {
     const result = await apiClient.delete(`/product/${data?._id}`);
     if (result?.status === 200) {
+      fetchProducts();
       toast.success("Product deleted successfully!");
       setProducts(result.data);
     } else {
