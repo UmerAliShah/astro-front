@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import apiClient from "../api/apiClient";
 import * as XLSX from "xlsx/xlsx";
+import { toast } from "react-toastify";
 
 const AllKeys = () => {
   const [keys, setKeys] = useState([]);
@@ -11,6 +12,7 @@ const AllKeys = () => {
   const [pageSize, setPageSize] = useState(20);
   const [products, setProducts] = useState();
   const [flavour, setFlavour] = useState();
+  const [loading, setLoading] = useState(false);
 
   const fetchKeys = async (
     page = currentPage,
@@ -18,10 +20,12 @@ const AllKeys = () => {
     status = "",
     flavour = ""
   ) => {
+    setLoading(true);
     const res = await apiClient.get(
       `/codes?page=${page}&sort=${sort}&status=${status}&flavour=${flavour}`
     );
     if (res.status === 200) {
+      setLoading(false);
       setKeys(res.data.keys);
       setCurrentPage(res.data.currentPage);
       setTotalPages(res.data.totalPages);
@@ -29,9 +33,11 @@ const AllKeys = () => {
   };
 
   const fetchProducts = async () => {
+    setLoading(true);
     const res = await apiClient.get("/product");
     if (res.status === 200) {
       setProducts(res.data);
+      setLoading(false);
     }
   };
 
@@ -60,20 +66,18 @@ const AllKeys = () => {
         fetchKeys();
       }
     } catch (error) {
-      console.error(error);
+      toast.error(error);
     }
   };
 
   const exportAll = async () => {
     const allKeys = await apiClient.get("/codes/all");
-    console.log(allKeys, "allkeys");
     if (allKeys.status === 200) {
       const data = [["Index", "Verification Code", "Batch ID"]];
       allKeys?.data?.forEach((code, index) => {
         const rowData = [index + 1, code.key, code.batchId.BatchID];
         data.push(rowData);
       });
-      console.log(data, "data");
       const wb = XLSX.utils.book_new();
       const ws = XLSX.utils.aoa_to_sheet(data);
       XLSX.utils.book_append_sheet(wb, ws, "Verification Codes");
@@ -198,6 +202,13 @@ const AllKeys = () => {
             <option value={data.code}>{data?.name}</option>
           ))}
         </select>
+      )}
+      {loading && (
+        <div className="d-flex align-items-center justify-content-center">
+          <span class="spinner-border" role="status">
+            <span class="sr-only"></span>
+          </span>
+        </div>
       )}
       <table class="table border border-primary">
         <thead>

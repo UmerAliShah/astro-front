@@ -36,7 +36,6 @@ const LoginArea = () => {
       navigate("/admin");
 
       const res = await getusers.request();
-      console.log(res, "result");
       dispatch(login({ token: result?.data?.token, user: res?.data }));
     } else if (result.status === 404) {
       toast.error(result.data);

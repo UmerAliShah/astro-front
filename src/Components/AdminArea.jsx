@@ -1,6 +1,6 @@
 import CreateProduct from "./ProductCreationArea";
 import "../App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import QRarea from "./QRgenerateArea";
 import { useNavigate } from "react-router-dom";
@@ -39,6 +39,10 @@ const AdminArea = (props) => {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  useEffect(() => {
+    navigate("/");
+  }, []);
 
   const containerDrawer =
     window !== undefined ? () => window().document.body : undefined;

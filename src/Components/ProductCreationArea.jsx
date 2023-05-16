@@ -18,8 +18,10 @@ const CreateProduct = () => {
     image: "",
   };
   const [data, setData] = useState(initialState);
+  const [preview, setPreview] = useState();
   const handleChange = (key, value) => {
     if (key === "image") {
+      setPreview(value[0]);
       const reader = new FileReader();
       reader.readAsDataURL(value[0]);
       reader.onloadend = () => {
@@ -63,7 +65,6 @@ const CreateProduct = () => {
     formdata.append("description", data?.description);
     formdata.append("image", data?.image);
     const result = await request(formdata);
-    console.log(result, "res");
     if (result.status === 200) {
       setData(initialState);
       toast.dismiss(loadingToast);
@@ -83,7 +84,6 @@ const CreateProduct = () => {
     }
   };
   const handleupdateProduct = async (e) => {
-    console.log(data, "test");
     e.preventDefault();
     const formdata = new FormData();
     formdata.append("name", data?.name);
@@ -91,10 +91,6 @@ const CreateProduct = () => {
     formdata.append("code", data?.code);
     formdata.append("description", data?.description);
     formdata.append("image", data?.image);
-
-    for (const value of formdata.values()) {
-      console.log(value);
-    }
     const result = await updateProduct.request(formdata);
     const loadingToast = toast.loading(
       "Uploading product. This process may take a few minutes.",
@@ -192,23 +188,30 @@ const CreateProduct = () => {
                 ></textarea>
               </div>
               <div>
-                {state && (
+                {preview || data?.image ? (
                   <div class="col-md-12 col-lg-4 mb-4 ">
                     <div class="card text-black bg-transparent">
-                      <img
-                        src={data?.image}
-                        class="card-img-top img-fluid w-25 mx-auto my-2"
-                        alt="iPhone"
-                      />
+                      {state ? (
+                        <img
+                          src={data?.image}
+                          class="card-img-top img-fluid w-25 mx-auto my-2"
+                        />
+                      ) : (
+                        <img
+                          src={preview && URL.createObjectURL(preview)}
+                          class="card-img-top img-fluid w-25 mx-auto my-2"
+                        />
+                      )}
                     </div>
                   </div>
-                )}
+                ) : null}
                 <div class="row mb-4">
                   <label htmlFor="customFile1" className="mx-2 my-auto mb-2">
                     <b>
                       {state ? "Update Product image" : "Add product image"}
                     </b>
                   </label>
+                  <small style={{fontSize:"12px"}}>180px x 640px is recommanded </small>
                   <div className="col-6">
                     <div class="btn btn-primary  px-4">
                       <label

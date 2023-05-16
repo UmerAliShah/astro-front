@@ -6,10 +6,13 @@ import { toast } from "react-toastify";
 const Products = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const fetchProducts = async () => {
+    setLoading(true);
     const res = await apiClient.get("/product");
     if (res.status === 200) {
+      setLoading(false);
       setProducts(res.data);
     }
   };
@@ -33,6 +36,13 @@ const Products = () => {
           <section style={{ backgroundColor: " #eee" }}>
             <div class="container py-5">
               <div class="row">
+                {loading && (
+                  <div className="d-flex align-items-center justify-content-center">
+                    <span class="spinner-border" role="status">
+                      <span class="sr-only"></span>
+                    </span>
+                  </div>
+                )}
                 {products?.map((data, index) => {
                   return (
                     <div class="col-md-12 col-lg-4 mb-4 ">

@@ -1,7 +1,6 @@
 import { Table } from "react-bootstrap";
 
 const VerificationCodesTable = ({ codes, batchID }) => {
-  console.log(codes, "codes");
   return (
     <Table striped bordered hover>
       <thead>

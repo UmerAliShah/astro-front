@@ -41,7 +41,7 @@ const App = () => {
         <Route path="/error" element={<Error />} />
         <Route path="/already-used" element={<AlreadyUsed />} />
         {user?.isAdmin ? (
-          <Route element={<AdminArea />}>
+          <Route path="/" element={<AdminArea />}>
             <Route path="/" element={<AdminMainArea />} />
             <Route path="/createProduct" element={<CreateProduct />} />
             <Route path="/generateQR" element={<QRarea />} />

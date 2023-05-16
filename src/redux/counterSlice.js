@@ -13,7 +13,6 @@ export const counterSlice = createSlice({
   initialState,
   reducers: {
     login: (state, { payload }) => {
-      console.log(payload, "pay");
       localStorage.setItem(process.env.REACT_APP_TOKEN_KEY, payload.token);
       localStorage.setItem("user", JSON.stringify(payload.user));
       state.token = payload.token;
