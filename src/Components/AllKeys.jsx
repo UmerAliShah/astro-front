@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import apiClient from "../api/apiClient";
 import * as XLSX from "xlsx/xlsx";
 import { toast } from "react-toastify";
+import { Table } from "react-bootstrap";
 
 const AllKeys = () => {
   const [keys, setKeys] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [sort, setSort] = useState("");
+  const [active, setActive] = useState("all");
   const [status, setStatus] = useState("");
   const [pageSize, setPageSize] = useState(20);
   const [products, setProducts] = useState();
@@ -153,20 +155,35 @@ const AllKeys = () => {
       <div className="d-flex align-items-center justify-content-center">
         <div className="text-center mb-4">
           <button
-            className="btn text-primary py-2 mx-2 px-4 border border-primary"
-            onClick={() => handleStatus("")}
+            className={` btn  py-2 mx-2 px-4 border border-primary ${
+              active === "all" ? "active text-light" : "text-primary"
+            }`}
+            onClick={() => {
+              handleStatus("");
+              setActive("all");
+            }}
           >
             <b>All</b>
           </button>
           <button
-            className="btn text-primary py-2 mx-2 px-4 border border-primary"
-            onClick={() => handleStatus("activated")}
+            className={` btn  py-2 mx-2 px-4 border border-primary ${
+              active === "activated" ? "active text-light" : "text-primary"
+            }`}
+            onClick={() => {
+              handleStatus("activated");
+              setActive("activated");
+            }}
           >
             <b>Activated</b>
           </button>
           <button
-            className="btn text-primary py-2 mx-2 px-4 border border-primary"
-            onClick={() => handleStatus("unactivated")}
+            className={` btn  py-2 mx-2 px-4 border border-primary ${
+              active === "unactivated" ? "active text-light" : "text-primary"
+            }`}
+            onClick={() => {
+              handleStatus("unactivated");
+              setActive("unactivated");
+            }}
           >
             <b> Unactivated</b>
           </button>
@@ -197,7 +214,6 @@ const AllKeys = () => {
             setFlavour(code);
           }}
         >
-          <option selected>Select to filter by category</option>
           {products.map((data, index) => (
             <option value={data.code}>{data?.name}</option>
           ))}
@@ -210,7 +226,7 @@ const AllKeys = () => {
           </span>
         </div>
       )}
-      <table class="table border border-primary">
+      <Table variant="light" striped bordered hover>
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -221,7 +237,7 @@ const AllKeys = () => {
           </tr>
         </thead>
         <tbody>{renderTableRows()}</tbody>
-      </table>
+      </Table>
       {renderPagination()}
     </div>
   );
