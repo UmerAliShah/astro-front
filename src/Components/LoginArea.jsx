@@ -2,7 +2,7 @@ import { useState } from "react";
 import Footer from "./Footer";
 import Header from "./Header";
 import "../App";
-import BackgroundImg from "../assets/background-toolarea.png";
+import BackgroundImg from "../assets/main-background.png";
 import { useNavigate } from "react-router-dom";
 import apiClient, { setAuthToken } from "../api/apiClient";
 import useApi from "../hooks/useApi";
@@ -53,69 +53,72 @@ const LoginArea = () => {
     overflow: "hidden",
   };
   return (
-    <div className="main " style={styles}>
+    <div
+      className="background d-flex justify-content-center align-items-center flex-column "
+      style={styles}
+    >
       <Header backgroundColor="#f9b656" page="mainPage" />
       <div className="container-fluid">
-        <div className="row">
-          <div className="col-12 toolArea">
-            <div className="bg-white w-75" style={{ borderRadius: "3.4rem" }}>
-              <form className="toolArea" onSubmit={handleSubmit}>
-                <div className=" mx-auto">
-                  <div className=" d-flex flex-column align-items-center justify-content-center">
-                    <div className="logo" style={{ width: "10rem" }}>
-                      <img
-                        width={"100%"}
-                        src={require("../assets/logo.png")}
-                        alt=""
-                        className=" mw-100"
-                      />
-                    </div>
-                  </div>
-                  <input
-                    type="email"
-                    value={loginData.email}
-                    onChange={(e) => handleChange("email", e.target.value)}
-                    placeholder="Email:"
-                    className="form-control input shadow-none bg-transparent rounded-0 py-2 px-0 my-3 mx-0 border border-primary border-bottom-2 border-start-0 border-top-0 border-end-0 fs-5"
-                  />
-                  <div className="position-relative">
-                    <input
-                      value={loginData.password}
-                      onChange={(e) => handleChange("password", e.target.value)}
-                      className="form-control input shadow-none bg-transparent rounded-0 py-2 ps-0 pe-4 my-3 mx-0 border border-primary border-bottom-2 border-start-0 border-top-0 border-end-0 fs-5"
-                      type={showPassword ? "password" : "text"}
-                      name
-                      id
-                      placeholder="Password"
+        <div
+          className="row m-auto bg-white py-5 w-75"
+          style={{ borderRadius: "3.4rem" }}
+        >
+          <div className="col-12 my-auto">
+            <form className="" onSubmit={handleSubmit}>
+              <div className=" mx-auto">
+                <div className=" d-flex flex-column align-items-center justify-content-center">
+                  <div className="logo" style={{ width: "10rem" }}>
+                    <img
+                      width={"100%"}
+                      src={require("../assets/logo.png")}
+                      alt=""
                     />
-                    <button
-                      type="button"
-                      className="show-password bg-transparent border-0 position-absolute end-0 top-0 lh-lg fs-5"
-                      onClick={() => setShowPassword(!showPassword)}
-                    >
-                      {showPassword ? (
-                        <i className="bi bi-eye-fill" />
-                      ) : (
-                        <i class="bi bi-eye-slash-fill" />
-                      )}
-                    </button>
-                  </div>
-                  <div className="d-flex justify-content-center">
-                    <button
-                      type="submit"
-                      className="verifyButton bg-blue rounded-pill text-white fs-3 border-0 px-5 lh-lg"
-                    >
-                      {loading && (
-                        <span class="spinner-border" role="status">
-                          <span class="sr-only"></span>
-                        </span>
-                      )}
-                      Login
-                    </button>
                   </div>
                 </div>
-              </form>
-            </div>
+                <input
+                  type="email"
+                  value={loginData.email}
+                  onChange={(e) => handleChange("email", e.target.value)}
+                  placeholder="Email:"
+                  className="w-50 mx-auto form-control input shadow-none bg-transparent rounded-0 py-2 px-0 my-3 mx-0 border border-primary border-bottom-2 border-start-0 border-top-0 border-end-0 fs-5"
+                />
+                <div className="position-relative">
+                  <input
+                    value={loginData.password}
+                    onChange={(e) => handleChange("password", e.target.value)}
+                    className="w-50 mx-auto form-control input shadow-none bg-transparent rounded-0 py-2 ps-0 pe-4 my-3 mx-0 border border-primary border-bottom-2 border-start-0 border-top-0 border-end-0 fs-5"
+                    type={showPassword ? "password" : "text"}
+                    name
+                    id
+                    placeholder="Password"
+                  />
+                  <button
+                    type="button"
+                    className="show-password bg-transparent border-0 position-absolute end-0 top-0 lh-lg fs-5"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? (
+                      <i className="bi bi-eye-fill" />
+                    ) : (
+                      <i class="bi bi-eye-slash-fill" />
+                    )}
+                  </button>
+                </div>
+                <div className="d-flex justify-content-center">
+                  <button
+                    type="submit"
+                    className="verifyButton bg-blue rounded-pill text-white fs-3 border-0 px-5 lh-lg"
+                  >
+                    {loading && (
+                      <span class="spinner-border" role="status">
+                        <span class="sr-only"></span>
+                      </span>
+                    )}
+                    Login
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
