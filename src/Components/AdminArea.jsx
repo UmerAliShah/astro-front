@@ -6,7 +6,6 @@ import QRarea from "./QRgenerateArea";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../redux/counterSlice";
-import BackgroundImg from "../assets/background-admin.jpg";
 import {
   Drawer,
   Button,
@@ -104,15 +103,8 @@ const AdminArea = (props) => {
     </div>
   );
 
-  const styles = {
-    backgroundImage: `url(${BackgroundImg})`,
-    backgroundSize: "cover",
-    minHeight: "100vh",
-    maxWidth: "100vw",
-    backgroundAttachment: "fixed",
-  };
   return (
-    <Box sx={{ display: "flex" }} className="background" style={styles}>
+    <Box sx={{ display: "flex" }} className="background">
       <CssBaseline />
       <AppBar
         position="fixed"

@@ -4,8 +4,8 @@ import "../App.css";
 const Header = ({ backgroundColor, page, headerLogo }) => {
   return (
     <nav
-      style={{ backgroundColor, zIndex: "1" }}
-      className={`${page} navbar navbar-expand-lg px-0 header`}
+      style={{ backgroundColor }}
+      className={`${page} navbar navbar-expand-lg px-0 header fixed-top`}
     >
       <div className="row mx-auto">
         <div className="col">

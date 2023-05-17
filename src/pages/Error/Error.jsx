@@ -1,6 +1,6 @@
 import Header from "../../Components/Header";
 import ErrorArea from "../../Components/ErrorArea";
-import BackgroundImg from "../../assets/background-error.png";
+import BackgroundImg from "../../assets/error-background.png";
 import Footer from "../../Components/Footer";
 const Error = () => {
   const styles = {
@@ -11,18 +11,22 @@ const Error = () => {
     overflow: "hidden",
   };
   return (
-    <div className="background" style={styles}>
+    <div
+      className="background d-flex justify-content-center align-items-center flex-column"
+      style={styles}
+    >
       <Header backgroundColor="#e8484c" page="errorPage " />
       <div className="container-fluid">
-        <div className="row ">
-          <div className="errorArea col-12">
-            <div className="bg-white w-75" style={{ borderRadius: "3.4rem" }}>
-              <ErrorArea />
-            </div>
+        <div
+          className="row m-auto bg-white w-75"
+          style={{ borderRadius: "3.4rem" }}
+        >
+          <div className="col-12">
+            <ErrorArea />
           </div>
+          <Footer />
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

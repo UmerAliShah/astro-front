@@ -1,6 +1,6 @@
 import Header from "../../Components/Header";
 import ErrorArea from "../../Components/AlreadyUsedArea";
-import BackgroundImg from "../../assets/background-error.png";
+import BackgroundImg from "../../assets/error-background.png";
 import Footer from "../../Components/Footer";
 const Error = () => {
   const styles = {

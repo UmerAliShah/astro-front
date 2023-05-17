@@ -1,7 +1,7 @@
 import "../App.css";
 const Footer = () => {
   return (
-    <div className="col-12">
+    <div className="col-12 fixed-bottom mb-lg-3 mb-1">
       <div className=" footer w-100">
         <div className="">
           <img

@@ -46,11 +46,9 @@ const ProductArea = () => {
             <Swiper
               slidesPerView={5}
               spaceBetween={0}
-              centeredSlides={true}
               pagination={{
                 clickable: true,
               }}
-              modules={[Pagination]}
               className="mySwiper"
             >
               {products?.map((data, index) => {
