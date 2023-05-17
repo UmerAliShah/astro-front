@@ -211,19 +211,18 @@ const CreateProduct = () => {
                       {state ? "Update Product image" : "Add product image"}
                     </b>
                   </label>
-                  <small style={{fontSize:"12px"}}>180px x 640px is recommanded </small>
+                  <small style={{ fontSize: "12px" }}>
+                    180px x 640px is recommanded{" "}
+                  </small>
                   <div className="col-6">
-                    <div class="btn btn-primary  px-4">
-                      <label
-                        class="form-label text-white my-1"
-                        for="customFile1"
-                      >
+                    <div class="btn btn-primary  ms-2 border border-1 py-4 px-4">
+                      <label class="text-white" for="customFile1">
                         <b> Upload Image</b>
                       </label>
                       <input
                         onChange={(e) => handleChange("image", e.target.files)}
                         type="file"
-                        class="form-control d-none"
+                        class=" d-none"
                         id="customFile1"
                       />
                     </div>
@@ -239,7 +238,7 @@ const CreateProduct = () => {
                     <button
                       type="button"
                       onClick={() => setData(initialState)}
-                      className="btn btn-light text-primary  py-4 px-4"
+                      className="btn btn-light text-primary ms-2 border border-1 py-4 px-4"
                     >
                       <b>clear </b>
                     </button>

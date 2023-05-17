@@ -14,9 +14,13 @@
   align-items: center;
 }
 .active {
-  background-color: #f0f0f0;
-  color: #0b5ed7;
-  border: 0.5px solid #0b5ed7;
+  background-color: #0b5ed7 !important;
+  border: 0.5px solid #0b5ed7 !important;
+  color: white !important;
+}
+
+.header img {
+  height: 70px !important;
 }
 
 .keysArea {

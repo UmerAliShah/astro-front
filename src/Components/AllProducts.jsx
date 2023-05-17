@@ -34,7 +34,7 @@ const Products = () => {
     <div className="container-fluid">
       <div className="row">
         <div className="col-12">
-          <section style={{ backgroundColor: " #eee" }}>
+          <section>
             <div class="container py-5">
               <div class="row">
                 {loading && (
@@ -47,7 +47,7 @@ const Products = () => {
                 {products?.map((data, index) => {
                   return (
                     <div class="col-md-12 col-lg-4 mb-4 ">
-                      <div class="card text-black bg-transparent">
+                      <div class="card text-black bg-white">
                         <img
                           src={data?.image}
                           class="card-img-top img-fluid w-25 mx-auto my-2"
