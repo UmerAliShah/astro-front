@@ -1,19 +1,11 @@
 import Header from "../../Components/Header";
 import ErrorArea from "../../Components/ErrorArea";
-import BackgroundImg from "../../assets/error-background.png";
 import Footer from "../../Components/Footer";
 const Error = () => {
-  const styles = {
-    backgroundImage: `url(${BackgroundImg})`,
-    backgroundSize: "cover",
-    backgroundPosition: "center center",
-    minHeight: "100vh",
-    overflow: "hidden",
-  };
+
   return (
     <div
-      className="background d-flex justify-content-center align-items-center flex-column"
-      style={styles}
+      className="background errorArea d-flex justify-content-center align-items-center flex-column"
     >
       <Header backgroundColor="#e8484c" page="errorPage " />
       <div className="container-fluid">

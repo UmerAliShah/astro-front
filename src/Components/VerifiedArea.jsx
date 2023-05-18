@@ -36,8 +36,8 @@ const VerifiedArea = () => {
   };
   return (
     <div className="row">
-      <div className="col-12">
-        <div className="my-md-4 my-1 d-flex align-items-center justify-content-center">
+      <div className="col-12 ">
+        <div className="my-xl-5 my-1 d-flex align-items-center justify-content-center flex-lg-row flex-column">
           <img
             src={require("../assets/yes.png")}
             className="verifyImg img-fluid"
@@ -51,7 +51,7 @@ const VerifiedArea = () => {
           <div className="col-4 text-end">
             <img
               src={productData?.image}
-              className="img-fluid verifiyImage"
+              className="img-fluid verifiedProduct"
               alt="product image"
             />
           </div>
@@ -64,11 +64,11 @@ const VerifiedArea = () => {
               <b>Name:</b>
               {` ${productData?.name}`}
             </div>
-            <div className="my-4">
+            <div className="my-xl-4 my-2">
               <b>Activated:</b>
               {` ${activatedDate}`}
             </div>
-            <div className="my-4">
+            <div className="my-xl-4 my-2">
               <b>Size:</b> {` ${productData?.size}`}
             </div>
             <div>
@@ -79,7 +79,7 @@ const VerifiedArea = () => {
           <button
             onClick={() => handleAnotherProduct()}
             type="submit"
-            className=" mx-auto rounded-pill anotherbutton "
+            className="d-md-block mt-md-5 mt-1 d-none mx-auto rounded-pill anotherbutton "
           >
             <b>Check Another Product</b>
           </button>

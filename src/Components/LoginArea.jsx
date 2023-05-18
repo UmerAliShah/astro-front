@@ -1,8 +1,7 @@
 import { useState } from "react";
 import Footer from "./Footer";
 import Header from "./Header";
-import "../App";
-import BackgroundImg from "../assets/main-background.png";
+import BackgroundImg from "../assets/main-background.jpg";
 import { useNavigate } from "react-router-dom";
 import apiClient, { setAuthToken } from "../api/apiClient";
 import useApi from "../hooks/useApi";
