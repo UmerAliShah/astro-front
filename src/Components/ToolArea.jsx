@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Footer from "./Footer";
 import ProductArea from "./ProductArea";
 import { useNavigate } from "react-router-dom";
 import useApi from "../hooks/useApi";
@@ -49,23 +48,29 @@ const ToolArea = () => {
   };
 
   return (
-    <div className="row">
+    <div className="row" style={{ overflowY: "hidden" }}>
       <div className="col-12">
-        <h4 className="text-dark topHeading text-center">
-          <b>
-            Please enter the 6 digit scratch off code to verify this product
-          </b>
+        <h4
+          className="text-dark text-center mt-md-0 mt-4 top-heading"
+          style={{ fontWeight: "bold", letterSpacing: "-1px" }}
+        >
+          Please enter the 6 digit scratch off code to verify this product
         </h4>
         <form onSubmit={handleverify} className="text-center">
-          <div>
+          <div className="pt-xl-5 pt-md-2 pt-1 verificationText">
             <label
-              className="form-label verificationCode"
+              className="form-label "
               htmlFor="verificationCode"
+              style={{
+                color: "black",
+                letterSpacing: "-1px",
+                fontWeight: "bold",
+              }}
             >
-              <b> VERIFICATION CODE</b>
+              VERIFICATION CODE
             </label>
             <input
-              className="inputField my-2  form-control text-center  mx-auto rounded-pill"
+              className=" my-2 p-4 form-control text-center   mx-auto "
               id="verificationCode"
               type="text"
               value={verify}
@@ -74,12 +79,16 @@ const ToolArea = () => {
               onChange={(e) => setVerify(e.target.value)}
             />
           </div>
-          <button type="submit" className="mx-auto rounded-pill verifyButton">
+          <button
+            type="submit"
+            className="mx-auto rounded-pill px-lg-5 px-4 py-3 border-0 verify-btn"
+            style={{ background: "rgb(249, 182, 86)", letterSpacing: "-1px" }}
+          >
             <b>VERIFY</b>
           </button>
         </form>
         <hr
-          className="bg-dark text-dark mx-auto"
+          className="bg-dark text-dark mx-auto d-md-block d-none"
           style={{ height: "2px", width: "95%" }}
         />
       </div>

@@ -19,7 +19,7 @@ const AdminMainArea = () => {
       setCurrentPage(res.data.currentPage);
       setTotalPages(res.data.totalPages);
       setValues({
-        daily: res.data.totalactivatedToday,
+        daily: res.data.activatedToday,
         weekly: res.data.activatedThisWeek,
         monthly: res.data.activatedThisMonth,
         total: res.data.totalActivated,
@@ -106,7 +106,7 @@ const AdminMainArea = () => {
   };
   return (
     <>
-      <div class="container-fluid my-5">
+      <div class="container-fluid my-5" style={{ overflowY: "scroll" }}>
         <div class="row text-white">
           <div
             class="col-sm mx-1 text-dark border border-1"

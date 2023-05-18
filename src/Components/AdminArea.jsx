@@ -27,6 +27,15 @@ import LogoutIcon from "@mui/icons-material/Logout";
 const drawerWidth = 240;
 
 const AdminArea = (props) => {
+  useEffect(() => {
+    // Add the CSS class to the body when the admin section is active
+    document.body.classList.add("admin-section");
+
+    return () => {
+      // Remove the CSS class from the body when the component is unmounted
+      document.body.classList.remove("admin-section");
+    };
+  }, []);
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(logout());
@@ -34,7 +43,7 @@ const AdminArea = (props) => {
   const navigate = useNavigate();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activePath, setActivePath] = useState("");
+  const [activePath, setActivePath] = useState("/");
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -51,6 +60,18 @@ const AdminArea = (props) => {
     <div>
       <Toolbar />
       <List>
+        <ListItem
+          onClick={() => {
+            navigate("/");
+            setActivePath("/");
+          }}
+          className={activePath === "/" ? "active" : ""}
+        >
+          <ListItemButton>
+            <ListItemIcon></ListItemIcon>
+            <ListItemText primary="Home" />
+          </ListItemButton>
+        </ListItem>
         <ListItem
           onClick={() => {
             navigate("/createProduct");
@@ -72,7 +93,7 @@ const AdminArea = (props) => {
         >
           <ListItemButton>
             <ListItemIcon></ListItemIcon>
-            <ListItemText primary="Generate Product Qr" />
+            <ListItemText primary="Code Generator" />
           </ListItemButton>
         </ListItem>
         <ListItem
@@ -84,7 +105,7 @@ const AdminArea = (props) => {
         >
           <ListItemButton>
             <ListItemIcon></ListItemIcon>
-            <ListItemText primary="All products" />
+            <ListItemText primary="All Products" />
           </ListItemButton>
         </ListItem>
         <ListItem

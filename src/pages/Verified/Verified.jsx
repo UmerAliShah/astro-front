@@ -1,20 +1,11 @@
 import Footer from "../../Components/Footer";
 import Header from "../../Components/Header";
 import VerifiedArea from "../../Components/VerifiedArea";
-import BackgroundImg from "../../assets/verify-background.png";
 
 const verified = () => {
-  const styles = {
-    backgroundImage: `url(${BackgroundImg})`,
-    backgroundSize: "cover",
-    backgroundPosition: "center center",
-    minHeight: "100vh",
-    overflow: "hidden",
-  };
   return (
     <div
-      className="background d-flex justify-content-center align-items-center flex-column"
-      style={styles}
+      className="background d-flex justify-content-center align-items-center flex-column verifyArea"
     >
       <Header backgroundColor="#2e9f39" page="verifiedPage" />
       <div className="container-fluid">
