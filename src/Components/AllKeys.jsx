@@ -3,6 +3,7 @@ import apiClient from "../api/apiClient";
 import * as XLSX from "xlsx/xlsx";
 import { toast } from "react-toastify";
 import { Table } from "react-bootstrap";
+import useApi from "../hooks/useApi";
 
 const AllKeys = () => {
   const [keys, setKeys] = useState([]);
@@ -15,16 +16,19 @@ const AllKeys = () => {
   const [products, setProducts] = useState();
   const [flavour, setFlavour] = useState();
   const [loading, setLoading] = useState(false);
+  const [checkedId, setCheckedId] = useState([]);
+  const [batches, setbatches] = useState([]);
 
   const fetchKeys = async (
     page = currentPage,
     sort = "",
     status = "",
-    flavour = ""
+    flavour = "",
+    batch = ""
   ) => {
     setLoading(true);
     const res = await apiClient.get(
-      `/codes?page=${page}&sort=${sort}&status=${status}&flavour=${flavour}`
+      `/codes?page=${page}&sort=${sort}&status=${status}&flavour=${flavour}&batch=${batch}`
     );
     if (res.status === 200) {
       setLoading(false);
@@ -42,10 +46,19 @@ const AllKeys = () => {
       setLoading(false);
     }
   };
+  const fetchBatch = async () => {
+    setLoading(true);
+    const res = await apiClient.get("/codes/allbatches");
+    if (res.status === 200) {
+      setbatches(res.data);
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     fetchKeys();
     fetchProducts();
+    fetchBatch();
   }, []);
 
   const handleStatus = (value) => {
@@ -59,13 +72,25 @@ const AllKeys = () => {
   };
 
   const handleDelete = async (id) => {
+    console.log(id, "id");
     try {
-      const response = await apiClient.delete(`/codes/${id}`);
-      if (!response.status === 200) {
-        throw new Error(response.statusText);
-      }
-      if (response.status == 200) {
-        fetchKeys();
+      if (id.length === 1) {
+        const response = await apiClient.delete(`/codes/${id}`);
+        if (!response.status === 200) {
+          throw new Error(response.statusText);
+        }
+        if (response.status == 200) {
+          fetchKeys();
+        }
+      } else {
+        const response = await apiClient.post("/codes/delete-bulk", {
+          data: id,
+        });
+        if (response.status === 200) {
+          fetchKeys();
+        } else {
+          throw new Error(response.statusText);
+        }
       }
     } catch (error) {
       toast.error(error);
@@ -103,8 +128,29 @@ const AllKeys = () => {
     return keys.map((key, index) => {
       const originalIndex = index;
       index = (currentPage - 1) * pageSize + originalIndex + 1;
+
+      const handleCheckboxChange = (id) => {
+        if (checkedId.includes(id)) {
+          setCheckedId(checkedId.filter((itemId) => itemId !== id));
+        } else {
+          setCheckedId([...checkedId, id]);
+        }
+      };
+
+      const isChecked = checkedId.includes(key._id);
+
       return (
         <tr key={key._id}>
+          <td>
+            {!key.activated && (
+              <input
+                type="checkbox"
+                checked={isChecked}
+                disabled={key.activated}
+                onChange={() => handleCheckboxChange(key._id)}
+              />
+            )}
+          </td>
           <td>{index}</td>
           <td>{key.key}</td>
           <td>{key.batchId.BatchID}</td>
@@ -127,8 +173,30 @@ const AllKeys = () => {
   };
 
   const renderPagination = () => {
+    const maxButtons = 10;
+    const sideButtons = 2;
+    const ellipsisThreshold = maxButtons - sideButtons * 2 - 1;
+
     const pages = [];
-    for (let i = 1; i <= totalPages; i++) {
+    let startPage, endPage;
+
+    if (totalPages <= maxButtons) {
+      startPage = 1;
+      endPage = totalPages;
+    } else {
+      if (currentPage <= sideButtons + 1) {
+        startPage = 1;
+        endPage = maxButtons;
+      } else if (currentPage >= totalPages - sideButtons) {
+        startPage = totalPages - maxButtons + 1;
+        endPage = totalPages;
+      } else {
+        startPage = currentPage - sideButtons;
+        endPage = currentPage + sideButtons;
+      }
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
       pages.push(
         <li
           key={i}
@@ -140,9 +208,53 @@ const AllKeys = () => {
         </li>
       );
     }
+
+    if (totalPages > maxButtons && endPage < totalPages - 1) {
+      pages.push(
+        <li key="ellipsis-next" className="page-item disabled">
+          <span className="page-link">...</span>
+        </li>
+      );
+      pages.push(
+        <li key={totalPages} className="page-item">
+          <a
+            href="#"
+            className="page-link"
+            onClick={() => handlePageChange(totalPages)}
+          >
+            {totalPages}
+          </a>
+        </li>
+      );
+    }
+
     return (
       <nav aria-label="Page navigation example">
-        <ul className="pagination">{pages}</ul>
+        <ul className="pagination">
+          <li className={`page-item${currentPage === 1 ? " disabled" : ""}`}>
+            <a
+              href="#"
+              className="page-link"
+              onClick={() => handlePageChange(currentPage - 1)}
+            >
+              Previous
+            </a>
+          </li>
+          {pages}
+          <li
+            className={`page-item${
+              currentPage === totalPages ? " disabled" : ""
+            }`}
+          >
+            <a
+              href="#"
+              className="page-link"
+              onClick={() => handlePageChange(currentPage + 1)}
+            >
+              Next
+            </a>
+          </li>
+        </ul>
       </nav>
     );
   };
@@ -187,6 +299,21 @@ const AllKeys = () => {
           >
             <b> Unactivated</b>
           </button>
+          {checkedId.length ? (
+            <button
+              className={` btn  py-2 mx-2 px-4 border border-primary ${
+                active === "unactivated" ? "active text-light" : "text-primary"
+              }`}
+              onClick={() => {
+                handleDelete(checkedId);
+                setActive("Delete_Selected");
+              }}
+            >
+              <b> Delete Selected</b>
+            </button>
+          ) : (
+            ""
+          )}
           <select
             className="btn text-primary py-2 mx-2 px-4 border border-primary"
             aria-label="Default select example"
@@ -219,6 +346,21 @@ const AllKeys = () => {
           ))}
         </select>
       )}
+      {batches && (
+        <select
+          class="form-select border border-primary mb-2"
+          aria-label="Default select example"
+          placeholder="Filter By Batches"
+          onChange={(e) => {
+            const batch = e.target.value;
+            fetchKeys(1, "", "", "", batch);
+          }}
+        >
+          {batches.map((data, index) => (
+            <option value={data.BatchID}>{data.BatchID}</option>
+          ))}
+        </select>
+      )}
       {loading && (
         <div className="d-flex align-items-center justify-content-center">
           <span class="spinner-border" role="status">
@@ -229,6 +371,7 @@ const AllKeys = () => {
       <Table variant="light" striped bordered hover>
         <thead>
           <tr>
+            <th scope="col"></th>
             <th scope="col">#</th>
             <th scope="col">Key</th>
             <th scope="col">Batch ID</th>

@@ -14,6 +14,7 @@ const CreateProduct = () => {
     name: "",
     size: "",
     code: "",
+    displayOrder: "",
     description: "",
     image: "",
   };
@@ -62,6 +63,7 @@ const CreateProduct = () => {
     formdata.append("name", data?.name);
     formdata.append("size", data?.size);
     formdata.append("code", data?.code);
+    formdata.append("displayOrder", data?.displayOrder);
     formdata.append("description", data?.description);
     formdata.append("image", data?.image);
     const result = await request(formdata);
@@ -89,6 +91,7 @@ const CreateProduct = () => {
     formdata.append("name", data?.name);
     formdata.append("size", data?.size);
     formdata.append("code", data?.code);
+    formdata.append("displayOrder", data?.displayOrder);
     formdata.append("description", data?.description);
     formdata.append("image", data?.image);
     const result = await updateProduct.request(formdata);
@@ -170,6 +173,23 @@ const CreateProduct = () => {
                     value={data?.code}
                     onChange={(e) => handleChange("code", e.target.value)}
                     type="text"
+                    id="form6Example2"
+                    class="form-control "
+                  />
+                </div>
+              </div>
+              <div class="col-12 mb-4">
+                <div class="form-outline">
+                  <label class="form-label" for="form6Example2">
+                    <b> Product Order</b>
+                  </label>
+                  <input
+                    required
+                    value={data?.displayOrder}
+                    onChange={(e) =>
+                      handleChange("displayOrder", e.target.value)
+                    }
+                    type="number"
                     id="form6Example2"
                     class="form-control "
                   />

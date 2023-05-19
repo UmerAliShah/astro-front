@@ -75,6 +75,9 @@ const QRarea = () => {
     const result = await request(data);
     if (result.status === 200) {
       setKeys([]);
+      setPostfix("");
+      setRange("");
+      setBatchID("");
       toast.dismiss(loadingToast);
       toast.success("Keys Submitted", {
         autoClose: 3000,

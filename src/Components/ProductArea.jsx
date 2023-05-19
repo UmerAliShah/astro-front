@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import apiClient from "../api/apiClient";
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
+import SwiperCore, { Autoplay } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper";
 
 const ProductArea = () => {
+  SwiperCore.use([Autoplay]);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -24,7 +26,7 @@ const ProductArea = () => {
   return (
     <div className="col-12">
       <div className="row productArea">
-        <div className="col-xl-3 col-md-4 d-md-block d-none col-sm-12 my-auto">
+        <div className="col-xl-3 col-sm-4 d-sm-block d-none my-auto">
           <div className="branding my-4 ps-5">
             <b>NEW FLAVORS DROPPING EVERY MONTH! FOLLOW US ON INSTAGRAM</b>
           </div>
@@ -34,7 +36,7 @@ const ProductArea = () => {
             </span>
           </div>
         </div>
-        <div className="col-md-6 col-sm-12 products align-items-center">
+        <div className="col-sm-6 col-12 products align-items-center">
           <div className="row pb-4  mt-2 justify-content-lg-start justify-content-center">
             {loading && (
               <div className="d-flex align-items-center justify-content-center">
@@ -46,18 +48,19 @@ const ProductArea = () => {
             <Swiper
               slidesPerView={5}
               spaceBetween={-40}
+              autoplay={true}
               pagination={{
                 clickable: true,
               }}
               breakpoints={{
                 320: {
-                  width:400,
+                  width: 400,
                   height: 1200,
-                  slidesPerView: 4,
+                  slidesPerView: 5,
                   spaceBetween: -30,
                 },
                 375: {
-                  slidesPerView: 4,
+                  slidesPerView: 5,
                   spaceBetween: -1,
                 },
                 420: {

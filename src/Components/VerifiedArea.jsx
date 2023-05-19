@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 const VerifiedArea = () => {
   const { state } = useLocation();
   const [productData, setProductData] = useState([]);
+  console.log(productData, "ata");
   const [batchData, setBatchData] = useState([]);
   const [activatedDate, setActivatedDate] = useState();
 
@@ -27,7 +28,7 @@ const VerifiedArea = () => {
     if (result.status === 200) {
       const { product, batch } = result.data;
       setProductData(product);
-      const date = new Date(batch?.activated);
+      const date = new Date(batch?.createdAt);
       const formattedDate = date.toLocaleString();
       setActivatedDate(formattedDate);
       const { batchId } = batch;

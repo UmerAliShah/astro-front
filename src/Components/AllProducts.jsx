@@ -3,6 +3,8 @@ import apiClient from "../api/apiClient";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Modal from "react-bootstrap/Modal";
+import "../App.css";
+import { Table } from "react-bootstrap";
 
 const Products = () => {
   const navigate = useNavigate();
@@ -83,53 +85,63 @@ const Products = () => {
                     </div>
                   </Modal.Body>
                 </Modal>
-                {products &&
-                  products?.map((data, index) => {
-                    return (
-                      <div class="col-md-12 col-lg-4 mb-4 ">
-                        <div class="card text-black bg-white">
-                          <img
-                            src={data?.image}
-                            class="card-img-top img-fluid w-25 mx-auto my-2"
-                            alt="iPhone"
-                          />
-                          <div class="card-body">
-                            <div class="text-center mt-1">
-                              <h4 class="card-title">{data?.name}</h4>
-                              <h6 class="text-primary mb-1 pb-3">
-                                {data?.size}
-                              </h6>
-                            </div>
-
-                            <div class="d-flex flex-row">
-                              <button
-                                type="button"
-                                class="btn btn-primary flex-fill me-1"
-                                data-mdb-ripple-color="dark"
-                                onClick={() => {
-                                  navigate("/createProduct", {
-                                    state: { product: data },
-                                  });
-                                }}
-                              >
-                                Edit
-                              </button>
-                              <button
-                                type="button"
-                                class="btn btn-danger flex-fill ms-1"
-                                onClick={() => {
-                                  setModal(true);
-                                  seCurrentProduct(data);
-                                }}
-                              >
-                                Delete
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
+                <Table variant="light" striped bordered hover>
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>image</th>
+                      <th>Name</th>
+                      <th>Size</th>
+                      <th>Description</th>
+                      <th>Edit</th>
+                      <th>Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {products &&
+                      products?.map((data, index) => (
+                        <tr key={index}>
+                          <td>{index + 1}</td>
+                          <td>
+                            <img
+                              src={data?.image}
+                              class="img-fluid mx-auto my-2 verifyImg"
+                              alt="iPhone"
+                            />
+                          </td>
+                          <td className="my-auto">{data?.name}</td>
+                          <td>{data?.size}</td>
+                          <td>{data?.description}</td>
+                          <td>
+                            <button
+                              type="button"
+                              class="btn btn-primary flex-fill me-1"
+                              data-mdb-ripple-color="dark"
+                              onClick={() => {
+                                navigate("/createProduct", {
+                                  state: { product: data },
+                                });
+                              }}
+                            >
+                              Edit
+                            </button>
+                          </td>
+                          <td>
+                            <button
+                              type="button"
+                              class="btn btn-danger flex-fill ms-1"
+                              onClick={() => {
+                                setModal(true);
+                                seCurrentProduct(data);
+                              }}
+                            >
+                              Delete
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </Table>
               </div>
             </div>
           </section>

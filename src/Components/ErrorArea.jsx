@@ -21,7 +21,7 @@ const ErrorArea = () => {
         <div className="errorText">
           <b>THE CODE YOU ENTERED DOES NOT MATCH THE ONES IN OUR SYSTEM!</b>
         </div>
-        <div className="errorText mt-xl-5 mt-1 mb-xl-5 mb-2">
+        <div className="errorText mt-xl-5 mt-1 mb-xl-5 pt-sm-0 pt-5 mb-2">
           <b>
             WE DO <u> NOT</u> RECOMMEND USING THIS PRODUCT
           </b>

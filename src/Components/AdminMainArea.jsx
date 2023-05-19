@@ -10,11 +10,13 @@ const AdminMainArea = () => {
   const [pageSize, setPageSize] = useState(20);
   const [values, setValues] = useState();
   const [active, setActive] = useState("all");
+  const [loading, setLoading] = useState(false);
 
   const fetchKeys = async (status) => {
+    setLoading(true);
     const res = await apiClient.get(`/codes?status=activated&${status}`);
     if (res.status === 200) {
-      console.log(res.data);
+      setLoading(false);
       setKeys(res.data.keys);
       setCurrentPage(res.data.currentPage);
       setTotalPages(res.data.totalPages);
@@ -75,7 +77,7 @@ const AdminMainArea = () => {
         <tr key={key._id}>
           <td>{index}</td>
           <td>{key.key}</td>
-          <td>{key.batchId.BatchID}</td>
+          <td>{key.batchId?.BatchID}</td>
           <td>
             {key.activated ? new Date(key.activated).toLocaleString() : "N/A"}
           </td>
@@ -201,6 +203,13 @@ const AdminMainArea = () => {
             </button>
           </div>
         </div>
+        {loading && (
+          <div className="d-flex align-items-center justify-content-center">
+            <span class="spinner-border" role="status">
+              <span class="sr-only"></span>
+            </span>
+          </div>
+        )}
         <Table variant="light" striped bordered hover>
           <thead>
             <tr>
