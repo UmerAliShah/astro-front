@@ -53,7 +53,7 @@ const LoginArea = () => {
   };
   return (
     <div
-      className="background d-flex justify-content-center align-items-center flex-column "
+      className="background d-flex justify-content-center align-items-center flex-column loginArea"
       style={styles}
     >
       <Header backgroundColor="#f9b656" page="mainPage" />
@@ -79,29 +79,39 @@ const LoginArea = () => {
                   value={loginData.email}
                   onChange={(e) => handleChange("email", e.target.value)}
                   placeholder="Email:"
-                  className="w-50 mx-auto form-control input shadow-none bg-transparent rounded-0 py-2 px-0 my-3 mx-0 border border-primary border-bottom-2 border-start-0 border-top-0 border-end-0 fs-5"
+                  id="verificationCode"
+                  className=" bg-white mt-5 form-control mx-auto"
                 />
-                <div className="position-relative">
-                  <input
-                    value={loginData.password}
-                    onChange={(e) => handleChange("password", e.target.value)}
-                    className="w-50 mx-auto form-control input shadow-none bg-transparent rounded-0 py-2 ps-0 pe-4 my-3 mx-0 border border-primary border-bottom-2 border-start-0 border-top-0 border-end-0 fs-5"
-                    type={showPassword ? "password" : "text"}
-                    name
-                    id
-                    placeholder="Password"
-                  />
-                  <button
-                    type="button"
-                    className="show-password bg-transparent border-0 position-absolute end-0 top-0 lh-lg fs-5"
-                    onClick={() => setShowPassword(!showPassword)}
-                  >
-                    {showPassword ? (
-                      <i className="bi bi-eye-fill" />
-                    ) : (
-                      <i class="bi bi-eye-slash-fill" />
-                    )}
-                  </button>
+
+                <div
+                  className="row mx-auto border my-2 rounded-pill mb-3"
+                  id="verificationCode"
+                  style={{ background: "#E8F0FE" }}
+
+                >
+                  <div className="col-10">
+                    <input
+                      value={loginData.password}
+                      onChange={(e) => handleChange("password", e.target.value)}
+                      className=" mx-auto form-control border-0 bg-white"
+                      type={showPassword ? "password" : "text"}
+                      name
+                      placeholder="Password"
+                    />
+                  </div>
+                  <div className="col-2">
+                    <button
+                      type="button"
+                      className="show-password bg-transparent border-0 fs-4 "
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? (
+                        <i className="bi bi-eye-fill" />
+                      ) : (
+                        <i class="bi bi-eye-slash-fill" />
+                      )}
+                    </button>
+                  </div>
                 </div>
                 <div className="d-flex justify-content-center">
                   <button

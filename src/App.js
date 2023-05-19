@@ -19,6 +19,7 @@ import AllKeys from "./Components/AllKeys";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AdminMainArea from "./Components/AdminMainArea";
+import DeleteBatch from "./Components/DeleteBatch";
 
 const App = () => {
   const { user } = useSelector((state) => state.auth);
@@ -47,6 +48,7 @@ const App = () => {
             <Route path="/generateQR" element={<QRarea />} />
             <Route path="/all-products" element={<AllProducts />} />
             <Route path="/all-keys" element={<AllKeys />} />
+            <Route path="/delete-batch" element={<DeleteBatch />} />
           </Route>
         ) : (
           <Route path="/*" element={<Main />} />

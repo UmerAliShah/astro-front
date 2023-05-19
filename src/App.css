@@ -15,6 +15,10 @@ body {
   color: white !important;
 }
 
+.textArea > div > b {
+  font-weight: bolder !important;
+  font-size: larger;
+}
 .admin-section {
   overflow-y: scroll;
 }
@@ -154,11 +158,11 @@ body {
 }
 
 @media (max-width: 767px) {
-  .toolArea {
-    background-image: none;
-    background-color: white;
-  }
   .verifyArea {
+    background-image: none !important;
+    background-color: white !important;
+  }
+  .loginArea {
     background-image: none !important;
     background-color: white !important;
   }
@@ -179,8 +183,16 @@ body {
   #verificationCode {
     width: 50% !important;
   }
+  .top-heading {
+    font-size: 15px !important;
+  }
 }
 @media (max-width: 628px) {
+  .toolArea {
+    background-image: none;
+    background-color: white;
+    min-height: 100vh !important;
+  }
   .verifyArea {
     width: 100vw !important;
   }
@@ -193,8 +205,26 @@ body {
   }
 }
 
-@media (min-width: 320px) and (max-width: 520px) {
+@media (min-width: 320px) and (max-width: 575px) {
+  .toolArea {
+    min-height: 100vh !important;
+    margin-top: 120px !important;
+  }
+  .errorArea {
+    margin-top: -30px !important;
+  }
+
+  .errorText {
+    font-size: 18px;
+  }
+  .top-heading {
+    font-size: 22px !important;
+  }
+  .verify-btn {
+    margin-top: 30px;
+  }
   #verificationCode {
+    margin-top: 30px !important;
     width: 70% !important;
   }
   .verifiedProduct {
@@ -213,6 +243,14 @@ body {
   }
   .textArea {
     font-size: 9px;
+  }
+}
+
+@media (max-height: 989px) {
+  .productArea {
+    padding-top: 30px !important;
+    padding-bottom: -30px !important;
+    margin-top: -30px !important;
   }
 }
 
@@ -259,6 +297,7 @@ body {
   }
   .productArea {
     margin-top: -10px;
+    padding-top: 0px !important;
     margin-bottom: -30px;
   }
   .branding {
@@ -266,15 +305,12 @@ body {
   }
 }
 
-@media (max-height: 665px) {
-  .toolArea {
-    padding-top: 20px;
-  }
+@media (max-height: 667px) {
   .verifyArea {
     padding-top: 20px;
   }
   .toolArea {
-    margin-top: 30px !important;
+    margin-top: 70px !important;
   }
   #verificationCode {
     padding: 10px !important;
@@ -283,11 +319,12 @@ body {
   .verify-btn {
     width: 150px;
     height: 50px;
-    font-size: 13px;
+    font-size: 15px;
+    margin-top: 10px;
   }
   .productArea {
-    padding: 0px;
-    margin-top: -30px !important;
+    padding: 10px;
+    margin-top: 0px !important;
     margin-bottom: -30px;
   }
   .branding {

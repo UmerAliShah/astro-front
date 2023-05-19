@@ -3,7 +3,6 @@ import ProductArea from "./ProductArea";
 import { useNavigate } from "react-router-dom";
 import useApi from "../hooks/useApi";
 import apiClient from "../api/apiClient";
-import { toast } from "react-toastify";
 
 const ToolArea = () => {
   const [verify, setVerify] = useState();
@@ -13,37 +12,16 @@ const ToolArea = () => {
   );
   const handleverify = async (e) => {
     e.preventDefault();
-    const loadingToast = toast.loading(
-      "Verifying product. This process may take a few minutes.",
-      {
-        autoClose: false,
-        hideProgressBar: true,
-      }
-    );
+
     const result = await request(verify);
     if (result.status === 200) {
-      toast.dismiss(loadingToast);
       navigate("/verified", {
         state: { product: verify },
       });
-      toast.success("Product Verified", {
-        autoClose: 3000,
-        hideProgressBar: false,
-      });
     } else if (result.status === 400) {
-      toast.error(result?.data?.error);
-      toast.dismiss(loadingToast);
       navigate("/already-used");
     } else if (result.status === 404) {
-      toast.error(result?.data?.error);
-      toast.dismiss(loadingToast);
       navigate("/error");
-    } else {
-      toast.dismiss(loadingToast);
-      toast.error("Something Went Wrong!", {
-        autoClose: 3000,
-        hideProgressBar: false,
-      });
     }
   };
 
@@ -70,6 +48,7 @@ const ToolArea = () => {
               VERIFICATION CODE
             </label>
             <input
+              required
               className=" my-2 p-4 form-control text-center   mx-auto "
               id="verificationCode"
               type="text"
@@ -81,7 +60,7 @@ const ToolArea = () => {
           </div>
           <button
             type="submit"
-            className="mx-auto rounded-pill px-lg-5 px-4 py-3 border-0 verify-btn"
+            className="mx-auto rounded-pill px-lg-5 px-5 py-3 border-0 verify-btn"
             style={{ background: "rgb(249, 182, 86)", letterSpacing: "-1px" }}
           >
             <b>VERIFY</b>

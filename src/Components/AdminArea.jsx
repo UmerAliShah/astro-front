@@ -28,11 +28,9 @@ const drawerWidth = 240;
 
 const AdminArea = (props) => {
   useEffect(() => {
-    // Add the CSS class to the body when the admin section is active
     document.body.classList.add("admin-section");
 
     return () => {
-      // Remove the CSS class from the body when the component is unmounted
       document.body.classList.remove("admin-section");
     };
   }, []);
@@ -118,6 +116,18 @@ const AdminArea = (props) => {
           <ListItemButton>
             <ListItemIcon></ListItemIcon>
             <ListItemText primary="All keys" />
+          </ListItemButton>
+        </ListItem>
+        <ListItem
+          onClick={() => {
+            navigate("/delete-batch");
+            setActivePath("/delete-batch");
+          }}
+          className={activePath === "/delete-batch" ? "active" : ""}
+        >
+          <ListItemButton>
+            <ListItemIcon></ListItemIcon>
+            <ListItemText primary="Delete Batch" />
           </ListItemButton>
         </ListItem>
       </List>

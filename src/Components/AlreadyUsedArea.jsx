@@ -21,7 +21,7 @@ const AlreadyUsed = () => {
         <div className="errorText">
           <b>THIS CODE HAS PREVIOUSLY BEEN VERIFIED!</b>
         </div>
-        <div className="errorText mt-xl-5 mt-1 mb-xl-5 mb-2">
+        <div className="errorText mt-xl-5 pt-sm-0 pt-5 mt-1 mb-xl-5 mb-2">
           <b>
             WE CANNOT VERIFY THIS PRODUCT. THIS PRODUCT MIGHT NOT BE AUTHENTIC
           </b>
@@ -29,7 +29,7 @@ const AlreadyUsed = () => {
         <button
           onClick={() => handleAnotherProduct()}
           type="submit"
-          className="rounded-pill mt-xl-5 mt-2 mx-auto d-md-block d-none anotherbutton errorAnotherButton"
+          className="rounded-pill mt-xl-5  mt-2 mx-auto d-md-block d-none anotherbutton errorAnotherButton"
         >
           <b>Check Another Product</b>
         </button>
