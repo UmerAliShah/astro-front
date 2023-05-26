@@ -130,7 +130,6 @@ body {
   background-image: url("./assets/main-background.jpg");
   background-size: cover;
   background-position: center;
-  margin-top: 50px !important;
   min-height: 95vh;
   overflow-y: hidden;
 }
@@ -208,7 +207,6 @@ body {
 @media (min-width: 320px) and (max-width: 575px) {
   .toolArea {
     min-height: 100vh !important;
-    margin-top: 120px !important;
   }
   .errorArea {
     margin-top: -30px !important;
@@ -256,7 +254,6 @@ body {
 
 @media (max-height: 845px) {
   .toolArea {
-    padding-top: 10px !important;
     overflow-y: hidden !important;
   }
   .verifyArea {
@@ -274,9 +271,7 @@ body {
 }
 
 @media (max-height: 750px) {
-  .toolArea {
-    padding-top: 15px !important;
-  }
+
   .verifyArea {
     padding-top: 15px !important;
   }
@@ -309,9 +304,7 @@ body {
   .verifyArea {
     padding-top: 20px;
   }
-  .toolArea {
-    margin-top: 70px !important;
-  }
+
   #verificationCode {
     padding: 10px !important;
     margin-top: 10px;
@@ -333,9 +326,7 @@ body {
 }
 
 @media (min-height: 56px) and (max-height: 600px) {
-  .toolArea {
-    margin-top: 20px;
-  }
+
   .verifyArea {
     margin-top: 20px;
   }
