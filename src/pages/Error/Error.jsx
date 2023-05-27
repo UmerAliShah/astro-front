@@ -2,35 +2,43 @@ import Header from "../../Components/Header";
 import ErrorArea from "../../Components/ErrorArea";
 import Footer from "../../Components/Footer";
 import { useEffect, useState } from "react";
+import BackgroundImage from "../../assets/error-background.png";
+
 const Error = () => {
-  const [isMobileScreen, setIsMobileScreen] = useState(false);
-
+  const isMobileScreen = window.innerWidth < 575;
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobileScreen(window.innerWidth <= 767);
-    };
-
-    window.addEventListener("resize", handleResize);
-
+    if (!isMobileScreen) {
+      document.body.style.backgroundImage = `url(${BackgroundImage})`;
+      document.body.style.backgroundSize = "cover";
+      document.body.style.backgroundRepeat = "no-repeat";
+      document.body.style.backgroundPosition = "center";
+    }
     return () => {
-      window.removeEventListener("resize", handleResize);
+      document.body.style.backgroundImage = "";
+      document.body.style.backgroundSize = "";
+      document.body.style.backgroundRepeat = "";
+      document.body.style.backgroundPosition = "";
     };
   }, []);
-
   return (
-    <div className="background errorArea d-flex justify-content-center  align-items-center flex-column">
-      <Header backgroundColor="#e8484c" page="errorPage " />
-      <div className="container-fluid">
+    <div className="d-flex flex-column min-vh-100">
+      <Header backgroundColor="#e8484c" page="mainPage" />
+      <div
+        className={`flex-grow-1 d-flex justify-content-center  align-items-sm-center align-items-start ${
+          isMobileScreen ? "bg-white" : ""
+        }`}
+      >
         <div
-          className={`bg-white m-auto row ${isMobileScreen ? "" : "w-75"}`}
-          style={{ borderRadius: "3.4rem" }}
+          className="p-xl-5 px-md-3 px-0 py-sm-3 py-0 bg-white rounded-4"
+          style={{
+            width: `${isMobileScreen ? "90%" : "80%"}`,
+            maxWidth: "100%",
+          }}
         >
-          <div className="col-12">
-            <ErrorArea />
-          </div>
-          <Footer />
+          <ErrorArea />
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

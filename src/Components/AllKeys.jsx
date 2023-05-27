@@ -46,19 +46,10 @@ const AllKeys = () => {
       setLoading(false);
     }
   };
-  const fetchBatch = async () => {
-    setLoading(true);
-    const res = await apiClient.get("/codes/allbatches");
-    if (res.status === 200) {
-      setbatches(res.data);
-      setLoading(false);
-    }
-  };
 
   useEffect(() => {
     fetchKeys();
     fetchProducts();
-    fetchBatch();
   }, []);
 
   const handleStatus = (value) => {
@@ -72,7 +63,6 @@ const AllKeys = () => {
   };
 
   const handleDelete = async (id) => {
-    console.log(id, "id");
     try {
       if (id.length === 1) {
         const response = await apiClient.delete(`/codes/${id}`);
@@ -340,15 +330,18 @@ const AllKeys = () => {
             fetchKeys(1, "", "", code);
             setFlavour(code);
           }}
+          defaultValue="" // Add defaultValue with an empty value
         >
+          <option value="">Select a flavour</option> {/* Add an empty option */}
           {products.map((data, index) => (
             <option value={data.code}>{data?.name}</option>
           ))}
         </select>
       )}
-      {batches && (
+
+      {flavour && (
         <select
-          class="form-select border border-primary mb-2"
+          className="form-select border border-primary mb-2"
           aria-label="Default select example"
           placeholder="Filter By Batches"
           onChange={(e) => {
@@ -356,11 +349,21 @@ const AllKeys = () => {
             fetchKeys(1, "", "", "", batch);
           }}
         >
-          {batches.map((data, index) => (
-            <option value={data.BatchID}>{data.BatchID}</option>
-          ))}
+          {products.find((data) => data.code === flavour)?.batches?.length >
+          0 ? (
+            products
+              .find((data) => data.code === flavour)
+              ?.batches.map((el) => (
+                <option key={el?.BatchID} value={el?.BatchID}>
+                  {el?.BatchID}
+                </option>
+              ))
+          ) : (
+            <option value="">No Batches Available</option>
+          )}
         </select>
       )}
+
       {loading && (
         <div className="d-flex align-items-center justify-content-center">
           <span class="spinner-border" role="status">

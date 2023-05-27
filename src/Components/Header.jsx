@@ -4,7 +4,7 @@ const Header = ({ backgroundColor, page, headerLogo }) => {
   return (
     <nav
       style={{ backgroundColor }}
-      className={`${page} navbar navbar-expand-lg header w-100`}
+      className={`${page} navbar navbar-expand-lg header sticky-top w-100`}
     >
       <div className="row mx-auto">
         <div className="col">

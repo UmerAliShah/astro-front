@@ -3,34 +3,47 @@ import Footer from "../../Components/Footer";
 import Header from "../../Components/Header";
 import ToolArea from "../../Components/ToolArea";
 import HeaderLogo from "../../assets/mainPageLogo.png";
+import BackgroundImage from "../../assets/main-background.png";
 
 const Main = () => {
-  const isMobileScreen = window.innerWidth <= 426;
+  const isMobileScreen = window.innerWidth < 575;
+  useEffect(() => {
+    if (!isMobileScreen) {
+      document.body.style.backgroundImage = `url(${BackgroundImage})`;
+      document.body.style.backgroundSize = "cover";
+      document.body.style.backgroundRepeat = "no-repeat";
+      document.body.style.backgroundPosition = "center";
+    }
+    return () => {
+      document.body.style.backgroundImage = "";
+      document.body.style.backgroundSize = "";
+      document.body.style.backgroundRepeat = "";
+      document.body.style.backgroundPosition = "";
+    };
+  }, []);
+
+  console.log(isMobileScreen, "is mobile");
   return (
-    <>
+    <div className="d-flex flex-column min-vh-100">
       <Header
         headerLogo={HeaderLogo}
         backgroundColor="#f9b656"
         page="mainPage"
       />
-      <div className="  background  toolArea">
-        <div className="container-fluid ">
-          <div className="pt-xl-5 pt-2 d-flex  justify-content-center  align-items-center flex-column">
-            <div
-              className={`row mainArea m-auto bg-white py-4 ${
-                isMobileScreen ? "w-100" : "w-75"
-              }`}
-              style={{ borderRadius: "3.4rem" }}
-            >
-              <div className="col-12">
-                <ToolArea />
-              </div>
-            </div>
-          </div>
+      <div
+        className={`flex-grow-1 d-flex justify-content-center align-items-sm-center align-items-start pt-sm-0 pt-2 ${
+          isMobileScreen ? "bg-white" : ""
+        }`}
+      >
+        <div
+          className="p-xl-5 px-md-3 px-0 py-3 bg-white rounded-4"
+          style={{ width: "80%", maxWidth: "100%" }}
+        >
+          <ToolArea />
         </div>
-        <Footer />
       </div>
-    </>
+      <Footer />
+    </div>
   );
 };
 
