@@ -6,7 +6,6 @@ import { toast } from "react-toastify";
 const VerifiedArea = () => {
   const { state } = useLocation();
   const [productData, setProductData] = useState([]);
-  console.log(productData, "ata");
   const [batchData, setBatchData] = useState([]);
   const [activatedDate, setActivatedDate] = useState();
 
@@ -31,14 +30,16 @@ const VerifiedArea = () => {
       const date = new Date(batch?.createdAt);
       const formattedDate = date.toLocaleString();
       setActivatedDate(formattedDate);
-      const { batchId } = batch;
-      setBatchData(batchId?.BatchID);
+      if (batch) {
+        const { batchId } = batch;
+        setBatchData(batchId?.BatchID);
+      }
     }
   };
   return (
-    <div className="row">
+    <div className="row" style={{ overflow: "hidden" }}>
       <div className="col-12 ">
-        <div className="my-xl-5 my-1 d-flex align-items-center justify-content-center flex-lg-row flex-column">
+        <div className="my-xl-5 my-3 d-flex align-items-center justify-content-center flex-lg-row flex-column">
           <img
             src={require("../assets/yes.png")}
             className="verifyImg img-fluid"
@@ -56,31 +57,31 @@ const VerifiedArea = () => {
               alt="product image"
             />
           </div>
-          <div className="col-md-7 col-8 ms-lg-4 ms-0 textArea">
+          <div className="col-md-7 col-8 ms-lg-4 ms-0 textArea fs-6">
             <div>
               <b>Batch:</b>
-              {` ${batchData}`}
+              {` ${batchData || ""}`}
             </div>
             <div>
               <b>Name:</b>
-              {` ${productData?.name}`}
+              {` ${productData?.name || ""}`}
             </div>
             <div className="my-xl-4 my-2">
               <b>Activated:</b>
-              {` ${activatedDate}`}
+              {` ${activatedDate || ""}`}
             </div>
             <div className="my-xl-4 my-2">
-              <b>Size:</b> {` ${productData?.size}`}
+              <b>Size:</b> {` ${productData?.size || ""}`}
             </div>
             <div>
               <b>Description:</b>
-              {` ${productData?.description}`}
+              {` ${productData?.description || ""}`}
             </div>
           </div>
           <button
             onClick={() => handleAnotherProduct()}
             type="submit"
-            className="d-md-block mt-md-5 mt-1 d-none mx-auto rounded-pill anotherbutton "
+            className="d-md-block mt-md-5 py-2 mt-1 d-none mx-auto rounded-pill anotherbutton "
           >
             <b>Check Another Product</b>
           </button>

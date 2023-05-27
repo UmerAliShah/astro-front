@@ -1,7 +1,9 @@
 import "../App.css";
 const Footer = () => {
+  const isMobile = window.innerWidth < 575;
+  const isSmallHeight = window.innerHeight < 570;
   return (
-    <div className="col-12 fixed-bottom mb-lg-3 mb-1">
+    <div className={`col-12 ${isSmallHeight ? "" : "fixed-bottom"} `}>
       <div className=" footer flex-sm-row flex-column w-100">
         <div className="">
           <img

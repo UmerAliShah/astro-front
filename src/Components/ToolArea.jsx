@@ -6,6 +6,7 @@ import apiClient from "../api/apiClient";
 
 const ToolArea = () => {
   const [verify, setVerify] = useState();
+  const [fieldError, setFieldError] = useState(false);
   const navigate = useNavigate();
   const { request, loading, error } = useApi((data) =>
     apiClient.post("/codes/verify", { key: data })
@@ -13,29 +14,33 @@ const ToolArea = () => {
   const handleverify = async (e) => {
     e.preventDefault();
 
-    const result = await request(verify);
-    if (result.status === 200) {
-      navigate("/verified", {
-        state: { product: verify },
-      });
-    } else if (result.status === 400) {
-      navigate("/already-used");
-    } else if (result.status === 404) {
-      navigate("/error");
+    if (!verify) {
+      setFieldError(true);
+    } else {
+      const result = await request(verify);
+      if (result.status === 200) {
+        navigate("/verified", {
+          state: { product: verify },
+        });
+      } else if (result.status === 400) {
+        navigate("/already-used");
+      } else if (result.status === 404) {
+        navigate("/error");
+      }
     }
   };
 
   return (
-    <div className="row" style={{ overflowY: "hidden" }}>
+    <div className="row" style={{ overflow: "hidden" }}>
       <div className="col-12">
         <h4
-          className="text-dark text-center mt-md-0 mt-4 top-heading"
+          className="text-dark text-center mt-md-0 mt-sm-4 mt-0 top-heading"
           style={{ fontWeight: "bold", letterSpacing: "-1px" }}
         >
           Please enter the 6 digit scratch off code to verify this product
         </h4>
         <form onSubmit={handleverify} className="text-center">
-          <div className="pt-xl-5 pt-md-2 pt-1 verificationText">
+          <div className="pt-xl-5 pt-1 py-0 my-0 verificationText">
             <label
               className="form-label "
               htmlFor="verificationCode"
@@ -47,20 +52,28 @@ const ToolArea = () => {
             >
               VERIFICATION CODE
             </label>
-            <input
-              required
-              className=" my-2 p-4 form-control text-center   mx-auto "
-              id="verificationCode"
-              type="text"
-              value={verify}
-              maxLength={6}
-              placeholder="aBc2GP"
-              onChange={(e) => setVerify(e.target.value)}
-            />
+            <div className="position-relative">
+              <input
+                className={` p-4 form-control text-center   mx-auto  ${
+                  fieldError && "border border-danger "
+                }`}
+                id="verificationCode"
+                type="text"
+                value={verify}
+                maxLength={6}
+                placeholder={fieldError ? "This field is required" : "aBc2GP"}
+                onChange={(e) => setVerify(e.target.value)}
+              />
+              {fieldError && (
+                <div className="errorField" >
+                  <i class="bi bi-x-circle-fill fs-4 text-danger"></i>
+                </div>
+              )}
+            </div>
           </div>
           <button
             type="submit"
-            className="mx-auto rounded-pill px-lg-5 px-5 py-3 border-0 verify-btn"
+            className="mx-auto mt-4 rounded-pill px-lg-5 px-5 py-3 border-0 verify-btn"
             style={{ background: "rgb(249, 182, 86)", letterSpacing: "-1px" }}
           >
             <b>VERIFY</b>
@@ -71,7 +84,9 @@ const ToolArea = () => {
           style={{ height: "2px", width: "95%" }}
         />
       </div>
-      <ProductArea />
+      <div className="col-12" style={{ overflow: "auto" }}>
+        <ProductArea />
+      </div>
     </div>
   );
 };

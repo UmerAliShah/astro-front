@@ -3,39 +3,43 @@ import Footer from "../../Components/Footer";
 import Header from "../../Components/Header";
 import ToolArea from "../../Components/ToolArea";
 import HeaderLogo from "../../assets/mainPageLogo.png";
+import BackgroundImage from "../../assets/main-background.png";
 
 const Main = () => {
-  const [isMobileScreen, setIsMobileScreen] = useState(false);
-
+  const isMobileScreen = window.innerWidth < 575;
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobileScreen(window.innerWidth <= 767);
-    };
-
-    window.addEventListener("resize", handleResize);
-
+    if (!isMobileScreen) {
+      document.body.style.backgroundImage = `url(${BackgroundImage})`;
+      document.body.style.backgroundSize = "cover";
+      document.body.style.backgroundRepeat = "no-repeat";
+      document.body.style.backgroundPosition = "center";
+    }
     return () => {
-      window.removeEventListener("resize", handleResize);
+      document.body.style.backgroundImage = "";
+      document.body.style.backgroundSize = "";
+      document.body.style.backgroundRepeat = "";
+      document.body.style.backgroundPosition = "";
     };
   }, []);
 
+  console.log(isMobileScreen, "is mobile");
   return (
-    <div className="background d-flex justify-content-sm-center justify-content-start  align-items-center flex-column toolArea">
+    <div className="d-flex flex-column min-vh-100">
       <Header
         headerLogo={HeaderLogo}
         backgroundColor="#f9b656"
         page="mainPage"
       />
-      <div className="container-fluid py-xl-5 py-md-2 py-1">
+      <div
+        className={`flex-grow-1 d-flex justify-content-center align-items-sm-center align-items-start pt-sm-0 pt-2 ${
+          isMobileScreen ? "bg-white" : ""
+        }`}
+      >
         <div
-          className={`row mainArea m-auto bg-white py-xl-5 py-md-3 py-1 ${
-            isMobileScreen ? "" : "w-75"
-          }`}
-          style={{ borderRadius: "3.4rem" }}
+          className="p-xl-5 px-md-3 px-0 py-3 bg-white rounded-4"
+          style={{ width: "80%", maxWidth: "100%" }}
         >
-          <div className="col-12 my-auto">
-            <ToolArea />
-          </div>
+          <ToolArea />
         </div>
       </div>
       <Footer />

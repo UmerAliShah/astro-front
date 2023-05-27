@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Footer from "./Footer";
 import Header from "./Header";
-import BackgroundImg from "../assets/main-background.jpg";
+import BackgroundImg from "../assets/main-background.png";
 import { useNavigate } from "react-router-dom";
 import apiClient, { setAuthToken } from "../api/apiClient";
 import useApi from "../hooks/useApi";
@@ -44,36 +44,45 @@ const LoginArea = () => {
       toast.error("Error!");
     }
   };
-  const styles = {
-    backgroundImage: `url(${BackgroundImg})`,
-    backgroundSize: "cover",
-    backgroundPosition: "center center",
-    minHeight: "100vh",
-    overflow: "hidden",
-  };
+  const isMobileScreen = window.innerWidth < 575;
+  useEffect(() => {
+    if (!isMobileScreen) {
+      document.body.style.backgroundImage = `url(${BackgroundImg})`;
+      document.body.style.backgroundSize = "cover";
+      document.body.style.backgroundRepeat = "no-repeat";
+      document.body.style.backgroundPosition = "center";
+    }
+    return () => {
+      document.body.style.backgroundImage = "";
+      document.body.style.backgroundSize = "";
+      document.body.style.backgroundRepeat = "";
+      document.body.style.backgroundPosition = "";
+    };
+  }, []);
   return (
-    <div
-      className="background d-flex justify-content-center align-items-center flex-column loginArea"
-      style={styles}
-    >
+    <div className="d-flex flex-column min-vh-100">
       <Header backgroundColor="#f9b656" page="mainPage" />
-      <div className="container-fluid">
+      <div
+        className={`flex-grow-1 d-flex justify-content-center align-items-center ${
+          isMobileScreen ? "bg-white" : ""
+        }`}
+      >
         <div
-          className="row m-auto bg-white py-5 w-75"
-          style={{ borderRadius: "3.4rem" }}
+          className="p-xl-5 px-md-3 px-0 py-3 bg-white rounded-4"
+          style={{ width: "80%", maxWidth: "100%" }}
         >
-          <div className="col-12 my-auto">
-            <form className="" onSubmit={handleSubmit}>
-              <div className=" mx-auto">
-                <div className=" d-flex flex-column align-items-center justify-content-center">
-                  <div className="logo" style={{ width: "10rem" }}>
-                    <img
-                      width={"100%"}
-                      src={require("../assets/logo.png")}
-                      alt=""
-                    />
-                  </div>
+          <form className="" onSubmit={handleSubmit}>
+            <div className=" mx-auto">
+              <div className=" d-flex flex-column align-items-center justify-content-center">
+                <div className="logo" style={{ width: "10rem" }}>
+                  <img
+                    width={"100%"}
+                    src={require("../assets/logo.png")}
+                    alt=""
+                  />
                 </div>
+              </div>
+              <div className="py-5">
                 <input
                   type="email"
                   value={loginData.email}
@@ -87,7 +96,6 @@ const LoginArea = () => {
                   className="row mx-auto border my-2 rounded-pill mb-3"
                   id="verificationCode"
                   style={{ background: "#E8F0FE" }}
-
                 >
                   <div className="col-10">
                     <input
@@ -113,22 +121,22 @@ const LoginArea = () => {
                     </button>
                   </div>
                 </div>
-                <div className="d-flex justify-content-center">
-                  <button
-                    type="submit"
-                    className="verifyButton bg-blue rounded-pill text-white fs-3 border-0 px-5 lh-lg"
-                  >
-                    {loading && (
-                      <span class="spinner-border" role="status">
-                        <span class="sr-only"></span>
-                      </span>
-                    )}
-                    Login
-                  </button>
-                </div>
               </div>
-            </form>
-          </div>
+              <div className="d-flex justify-content-center">
+                <button
+                  type="submit"
+                  className="verifyButton bg-blue rounded-pill text-white fs-3 border-0 px-5 lh-lg"
+                >
+                  {loading && (
+                    <span class="spinner-border" role="status">
+                      <span class="sr-only"></span>
+                    </span>
+                  )}
+                   Login
+                </button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
       <Footer />

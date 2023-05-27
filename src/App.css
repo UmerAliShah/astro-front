@@ -22,7 +22,11 @@ body {
 .admin-section {
   overflow-y: scroll;
 }
-
+.errorField {
+  position: absolute;
+  left: 39%;
+  top: 25%;
+}
 .header img {
   height: 70px !important;
 }
@@ -33,11 +37,13 @@ body {
 }
 
 .verifyImg {
-  width: 100px !important;
+  width: 20px !important;
+}
+.authenticText {
+  font-size: 18px;
 }
 .verifiedProduct {
-  height: 300px !important;
-  width: 100px !important;
+  height: 250px !important;
 }
 .products img {
   width: auto !important;
@@ -57,12 +63,8 @@ body {
   background-color: #f9b656;
   width: 300px !important;
   border: none;
-  font-size: 15px;
+  font-size: 12px;
   letter-spacing: -1px;
-  padding: 10px;
-  padding-right: 20px;
-  padding-left: 20px;
-  margin-bottom: 10px !important;
   text-transform: uppercase;
 }
 .branding {
@@ -75,28 +77,18 @@ body {
   font-size: 10px !important;
   letter-spacing: -1px;
 }
-.verificationCode {
-  padding-top: 20px;
-  font-size: 10px;
-  font-weight: bold;
-}
 
 #verificationCode {
   width: 25% !important;
-  padding-top: 20px;
   background-color: aliceblue;
   border-radius: 20px !important;
 }
 .errorText {
-  font-size: 25px;
+  font-size: 20px;
 }
-.branding {
-  line-height: 30px;
-  font-size: 25px;
-  letter-spacing: -1px;
-}
+
 .footerImg {
-  width: 100px;
+  width: 80px;
 }
 .footer {
   display: flex !important;
@@ -107,10 +99,9 @@ body {
   font-size: 12px !important;
 }
 
-.textArea {
+.textArea > div {
   color: black;
-  font-weight: bold;
-  font-size: 15px;
+  font-size: 12px !important;
 }
 .footerText {
   font-weight: bolder;
@@ -118,7 +109,7 @@ body {
 }
 
 .errorImage {
-  width: 150px !important;
+  width: 100px !important;
 }
 
 .errorAnotherButton {
@@ -126,29 +117,8 @@ body {
   margin-top: 50px !important;
 }
 
-.toolArea {
-  background-image: url("./assets/main-background.jpg");
-  background-size: cover;
-  background-position: center;
-  margin-top: 50px !important;
-  min-height: 95vh;
-  overflow-y: hidden;
-}
-.verifyArea {
-  background-image: url("./assets/verify-background.jpg");
-  background-size: cover;
-  background-position: center;
-  margin-top: 50px !important;
-  min-height: 95vh;
-  overflow-y: hidden;
-}
-.errorArea {
-  background-image: url("./assets/error-background.jpg");
-  background-size: cover;
-  background-position: center;
-  margin-top: 50px !important;
-  min-height: 95vh;
-  overflow-y: hidden;
+.productImages {
+  max-width: 100%;
 }
 
 @media (max-width: 992px) {
@@ -186,13 +156,16 @@ body {
   .top-heading {
     font-size: 15px !important;
   }
+  .productImages {
+    max-width: none;
+  }
 }
 @media (max-width: 628px) {
-  .toolArea {
+  /* .toolArea {
     background-image: none;
     background-color: white;
     min-height: 100vh !important;
-  }
+  } */
   .verifyArea {
     width: 100vw !important;
   }
@@ -206,33 +179,51 @@ body {
 }
 
 @media (min-width: 320px) and (max-width: 575px) {
-  .toolArea {
+  /* body {
+    overflow-y: scroll !important;
+  } */
+  /* .toolArea {
     min-height: 100vh !important;
-    margin-top: 120px !important;
-  }
+  } */
   .errorArea {
     margin-top: -30px !important;
   }
+  .errorField {
+    left: 20%;
+    top: 25%;
+  }
 
   .errorText {
-    font-size: 18px;
+    font-size: 23px;
   }
   .top-heading {
-    font-size: 22px !important;
+    font-size: 25px !important;
   }
   .verify-btn {
     margin-top: 30px;
   }
   #verificationCode {
-    margin-top: 30px !important;
     width: 70% !important;
   }
   .verifiedProduct {
-    width: 100px !important;
     height: 250px !important;
   }
   .textArea {
     font-size: 10px;
+  }
+  .products img {
+    padding-top: 40px;
+    max-height: 12em !important;
+  }
+  .errorImage {
+    width: 200px !important;
+  }
+  .verifyImg {
+    width: 50px !important;
+  }
+  .textArea > div {
+    color: black;
+    font-size: 13px !important;
   }
 }
 
@@ -256,7 +247,6 @@ body {
 
 @media (max-height: 845px) {
   .toolArea {
-    padding-top: 10px !important;
     overflow-y: hidden !important;
   }
   .verifyArea {
@@ -264,19 +254,28 @@ body {
     overflow-y: hidden !important;
   }
   .top-heading {
-    font-size: 17px;
-    padding-bottom: 0%;
+    font-size: 30px !important;
+  }
+  .verificationText > label {
+    padding-top: 5vh !important;
   }
 
   #verificationCode {
     padding: 15px;
   }
+  .verifyImg {
+    width: 100px !important;
+  }
+  .textArea > div {
+    color: black;
+    font-size: 15px !important;
+  }
+  .verifiedProduct {
+    height: 350px !important;
+  }
 }
 
 @media (max-height: 750px) {
-  .toolArea {
-    padding-top: 15px !important;
-  }
   .verifyArea {
     padding-top: 15px !important;
   }
@@ -309,9 +308,7 @@ body {
   .verifyArea {
     padding-top: 20px;
   }
-  .toolArea {
-    margin-top: 70px !important;
-  }
+
   #verificationCode {
     padding: 10px !important;
     margin-top: 10px;
@@ -333,10 +330,20 @@ body {
 }
 
 @media (min-height: 56px) and (max-height: 600px) {
-  .toolArea {
-    margin-top: 20px;
-  }
   .verifyArea {
     margin-top: 20px;
+  }
+  .top-heading {
+    font-size: 16px !important;
+  }
+  
+  .branding {
+    font-size: 12px !important;
+  }
+}
+
+@media (max-height: 570px) {
+  body {
+    overflow-y: scroll !important;
   }
 }
