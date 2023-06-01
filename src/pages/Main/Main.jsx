@@ -36,8 +36,8 @@ const Main = () => {
         }`}
       >
         <div
-          className="p-xl-5 px-md-3 px-0 py-3 bg-white rounded-4"
-          style={{ width: "80%", maxWidth: "100%" }}
+          className="p-xl-5 px-md-3 px-0 py-3 bg-white"
+          style={{ width: "80%", maxWidth: "100%" ,borderRadius:"4rem"}}
         >
           <ToolArea />
         </div>

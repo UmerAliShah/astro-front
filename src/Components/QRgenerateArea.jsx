@@ -71,6 +71,7 @@ const QRarea = () => {
     const data = {
       batchId: batchID,
       keys,
+      postfix,
     };
     const result = await request(data);
     if (result.status === 200) {
@@ -84,6 +85,9 @@ const QRarea = () => {
         hideProgressBar: false,
       });
     } else if (result.status == 300) {
+      toast.dismiss(loadingToast);
+      toast.error(result.data.error);
+    } else if (result.status == 400) {
       toast.dismiss(loadingToast);
       toast.error(result.data.error);
     } else {
@@ -115,7 +119,10 @@ const QRarea = () => {
                       type="number"
                       max={5000}
                       value={range}
-                      onChange={(e) => setRange(e.target.value)}
+                      onChange={(e) => {
+                        setRange(e.target.value);
+                        setKeys([]);
+                      }}
                       id="form6Example1"
                       class="form-control"
                     />
@@ -131,7 +138,10 @@ const QRarea = () => {
                       type="number"
                       max={4}
                       value={keyLength}
-                      onChange={(e) => setKeyLength(e.target.value)}
+                      onChange={(e) => {
+                        setKeyLength(e.target.value);
+                        setKeys([]);
+                      }}
                       class="form-control"
                       id="form6Example7"
                     />
@@ -147,7 +157,10 @@ const QRarea = () => {
                       type="text"
                       placeholder={chracterSet}
                       value={chracterSet}
-                      onChange={(e) => setChracterSet(e.target.value)}
+                      onChange={(e) => {
+                        setChracterSet(e.target.value);
+                        setKeys([]);
+                      }}
                       class="form-control"
                       id="form6Example7"
                     />
@@ -162,7 +175,10 @@ const QRarea = () => {
                       required
                       type="text"
                       value={batchID}
-                      onChange={(e) => setBatchID(e.target.value)}
+                      onChange={(e) => {
+                        setBatchID(e.target.value);
+                        setKeys([]);
+                      }}
                       class="form-control"
                       id="form6Example7"
                     />
@@ -177,7 +193,10 @@ const QRarea = () => {
                       required
                       type="text"
                       value={postfix}
-                      onChange={(e) => setPostfix(e.target.value)}
+                      onChange={(e) => {
+                        setPostfix(e.target.value.toUpperCase());
+                        setKeys([]);
+                      }}
                       class="form-control"
                       id="form6Example7"
                     />

@@ -62,7 +62,7 @@ const CreateProduct = () => {
     const formdata = new FormData();
     formdata.append("name", data?.name);
     formdata.append("size", data?.size);
-    formdata.append("code", data?.code);
+    formdata.append("code", data?.code.toUpperCase());
     formdata.append("displayOrder", data?.displayOrder);
     formdata.append("description", data?.description);
     formdata.append("image", data?.image);

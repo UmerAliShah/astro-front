@@ -66,7 +66,7 @@ const ToolArea = () => {
               />
               {fieldError && (
                 <div className="errorField" >
-                  <i class="bi bi-x-circle-fill fs-4 text-danger"></i>
+                  <i class="bi bi-x-circle-fill fs-4 text-danger pe-3"></i>
                 </div>
               )}
             </div>

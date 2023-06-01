@@ -29,10 +29,11 @@ const Error = () => {
         }`}
       >
         <div
-          className="p-xl-5 px-md-3 px-0 py-sm-3 py-0 bg-white rounded-4"
+          className="p-xl-5 px-md-3 px-0 py-sm-3 py-0 bg-white "
           style={{
             width: `${isMobileScreen ? "90%" : "80%"}`,
             maxWidth: "100%",
+            borderRadius:"4rem"
           }}
         >
           <ErrorArea />

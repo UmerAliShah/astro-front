@@ -18,7 +18,7 @@ const AlreadyUsed = () => {
           />
         </div>
       </div>
-      <div className="text-center my-xl-4 mb-5 py-sm-0 py-5 pb-4">
+      <div className="text-center my-xl-4 mb-5 py-sm-0 py-2 pb-4">
         <div className="errorText">
           <b>THIS CODE HAS PREVIOUSLY BEEN VERIFIED!</b>
         </div>
