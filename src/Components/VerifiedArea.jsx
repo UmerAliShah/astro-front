@@ -53,7 +53,7 @@ const VerifiedArea = () => {
           <div className="col-4 text-end">
             <img
               src={productData?.image}
-              className="img-fluid verifiedProduct"
+              className="img-fluid  "
               alt="product image"
             />
           </div>

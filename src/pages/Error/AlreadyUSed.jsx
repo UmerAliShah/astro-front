@@ -24,7 +24,7 @@ const Error = () => {
     <div className="d-flex flex-column min-vh-100">
       <Header backgroundColor="#e8484c" page="mainPage" />
       <div
-        className={`flex-grow-1 d-flex justify-content-center  align-items-sm-center align-items-start ${
+        className={`flex-grow-1 d-flex justify-content-center  align-items-center  ${
           isMobileScreen ? "bg-white" : ""
         }`}
       >
