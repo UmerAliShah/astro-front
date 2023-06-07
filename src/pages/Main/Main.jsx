@@ -6,7 +6,19 @@ import HeaderLogo from "../../assets/mainPageLogo.png";
 import BackgroundImage from "../../assets/main-background.png";
 
 const Main = () => {
-  const isMobileScreen = window.innerWidth < 575;
+  const [isMobileScreen, setIsMobileScreen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileScreen(window.innerWidth < 575);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   useEffect(() => {
     if (!isMobileScreen) {
       document.body.style.backgroundImage = `url(${BackgroundImage})`;
