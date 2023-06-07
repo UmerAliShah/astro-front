@@ -120,9 +120,9 @@ body {
 .productImages {
   max-width: 100%;
 }
-@media (min-width: 1500px) {
+@media (min-width: 2200px) {
   .verifyImg {
-    width: 250px !important;
+    width: 150px !important;
   }
   .authenticText {
     font-size: 30px !important;
@@ -138,7 +138,7 @@ body {
     width: 500px !important;
   }
   .errorImage {
-    width: 400px !important;
+    width: 300px !important;
   }
   .errorText {
     font-size: 40px !important;
@@ -146,6 +146,14 @@ body {
   .errorAnotherButton {
     font-size: 30px !important;
     width: 500px !important;
+  }
+}
+@media (max-width: 2200px) {
+  .verifyImg {
+    width: 100px !important;
+  }
+  .textArea div {
+    font-size: 16px !important;
   }
 }
 @media (max-width: 1024px) {
@@ -233,8 +241,8 @@ body {
     margin-top: -30px !important;
   }
   .errorField {
-    left: 20%;
-    top: 25%;
+    left: 17%;
+    top: 30%;
   }
 
   .errorText {
@@ -259,11 +267,11 @@ body {
     padding-top: 40px;
     max-height: 12em !important;
   }
-  .errorImage {
+  /* .errorImage {
     width: 200px !important;
-  }
+  } */
   .verifyImg {
-    width: 50px !important;
+    width: 110px !important;
   }
   .textArea > div {
     color: black;

@@ -37,7 +37,13 @@ const Main = () => {
       >
         <div
           className="p-xl-5 px-md-3 px-0 py-3 bg-white"
-          style={{ width: "80%", maxWidth: "100%" ,borderRadius:"4rem"}}
+          style={{
+            width: "80%",
+            maxWidth: "100%",
+            borderRadius: "4rem",
+            height: "80vh",
+            display: "flex",
+          }}
         >
           <ToolArea />
         </div>
