@@ -1,11 +1,23 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../../Components/Footer";
 import Header from "../../Components/Header";
 import VerifiedArea from "../../Components/VerifiedArea";
 import BackgroundImage from "../../assets/verify-background.png";
 
 const Verified = () => {
-  const isMobileScreen = window.innerWidth < 575;
+  const [isMobileScreen, setIsMobileScreen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileScreen(window.innerWidth < 575);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   useEffect(() => {
     if (!isMobileScreen) {
       document.body.style.backgroundImage = `url(${BackgroundImage})`;
@@ -23,10 +35,7 @@ const Verified = () => {
 
   return (
     <div className="d-flex flex-column min-vh-100">
-      <Header
-        backgroundColor="#2e9f39"
-        page="verifiedPage"
-      />
+      <Header backgroundColor="#2e9f39" page="verifiedPage" />
       <div
         className={`flex-grow-1 d-flex justify-content-center align-items-sm-center align-items-start pt-sm-0  ${
           isMobileScreen ? "bg-white" : ""
@@ -34,7 +43,7 @@ const Verified = () => {
       >
         <div
           className="p-xl-5 px-md-3 px-0 py-1 bg-white "
-          style={{ width: "80%", maxWidth: "100%", borderRadius:"4rem" }}
+          style={{ width: "80%", maxWidth: "100%", borderRadius: "4rem" }}
         >
           <VerifiedArea />
         </div>

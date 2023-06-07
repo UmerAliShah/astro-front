@@ -1,11 +1,23 @@
 import Header from "../../Components/Header";
 import ErrorArea from "../../Components/AlreadyUsedArea";
 import Footer from "../../Components/Footer";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import BackgroundImage from "../../assets/error-background.png";
 
 const Error = () => {
-  const isMobileScreen = window.innerWidth < 575;
+  const [isMobileScreen, setIsMobileScreen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileScreen(window.innerWidth < 575);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   useEffect(() => {
     if (!isMobileScreen) {
       document.body.style.backgroundImage = `url(${BackgroundImage})`;
@@ -33,7 +45,7 @@ const Error = () => {
           style={{
             width: `${isMobileScreen ? "90%" : "80%"}`,
             maxWidth: "100%",
-            borderRadius:"4rem"
+            borderRadius: "4rem",
           }}
         >
           <ErrorArea />
