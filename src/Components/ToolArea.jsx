@@ -40,7 +40,7 @@ const ToolArea = () => {
           Please enter the 6 digit scratch off code to verify this product
         </h4>
         <form onSubmit={handleverify} className="text-center">
-          <div className="pt-xl-5 pt-1 py-0 my-0 verificationText">
+          <div className="pt-xxl-5 pt-xl-3 pt-1 py-0 my-0 verificationText">
             <label
               className="form-label "
               htmlFor="verificationCode"

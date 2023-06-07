@@ -39,7 +39,7 @@ const VerifiedArea = () => {
   return (
     <div className="row" style={{ overflow: "hidden" }}>
       <div className="col-12 ">
-        <div className="my-xl-5 my-3 d-flex align-items-center justify-content-center flex-lg-row flex-column">
+        <div className="py-xxl-5 py-xl-4 py-3 d-flex align-items-center justify-content-center flex-lg-row flex-column">
           <img
             src={require("../assets/yes.png")}
             className="verifyImg img-fluid"

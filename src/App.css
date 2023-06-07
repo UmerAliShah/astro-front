@@ -28,7 +28,8 @@ body {
   top: 25%;
 }
 .header img {
-  height: 70px !important;
+  /* height: 70px !important; */
+  width: 100px;
 }
 
 .keysArea {
@@ -37,7 +38,7 @@ body {
 }
 
 .verifyImg {
-  width: 20px !important;
+  width: 70px !important;
 }
 .authenticText {
   font-size: 18px;
@@ -101,7 +102,7 @@ body {
 
 .textArea > div {
   color: black;
-  font-size: 12px !important;
+  font-size: 14px !important;
 }
 .footerText {
   font-weight: bolder;
@@ -237,6 +238,10 @@ body {
   /* .toolArea {
     min-height: 100vh !important;
   } */
+  .toolArea-1 {
+    height: 80vh;
+    display: flex;
+  }
   .errorArea {
     margin-top: -30px !important;
   }
@@ -293,7 +298,7 @@ body {
   .verifyImg {
     width: 120px !important;
   }
-  .verifiedProduct{
+  .verifiedProduct {
     height: 400px !important;
   }
   .textArea div {
