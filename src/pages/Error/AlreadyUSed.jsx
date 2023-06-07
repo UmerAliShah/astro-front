@@ -5,19 +5,8 @@ import { useEffect, useLayoutEffect, useState } from "react";
 import BackgroundImage from "../../assets/error-background.png";
 
 const Error = () => {
-  const [isMobileScreen, setIsMobileScreen] = useState(false);
+  const isMobileScreen = window.innerWidth < 600;
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobileScreen(window.innerWidth < 575);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
   useEffect(() => {
     if (!isMobileScreen) {
       document.body.style.backgroundImage = `url(${BackgroundImage})`;

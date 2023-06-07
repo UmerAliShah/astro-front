@@ -3,7 +3,7 @@ import apiClient from "../api/apiClient";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-const VerifiedArea = () => {
+const VerifiedArea = ({isMobileScreen}) => {
   const { state } = useLocation();
   const [productData, setProductData] = useState([]);
   const [batchData, setBatchData] = useState([]);
@@ -38,8 +38,8 @@ const VerifiedArea = () => {
   };
   return (
     <div className="row" style={{ overflow: "hidden" }}>
-      <div className="col-12 ">
-        <div className="py-xxl-5 py-xl-4 py-3 d-flex align-items-center justify-content-center flex-lg-row flex-column">
+      <div className="col-12 gx-0">
+        <div className="py-xl-3 py-3 d-flex align-items-center justify-content-center flex-lg-row flex-column">
           <img
             src={require("../assets/yes.png")}
             className="verifyImg img-fluid"
@@ -53,7 +53,7 @@ const VerifiedArea = () => {
           <div className="col-4 text-end">
             <img
               src={productData?.image}
-              className="img-fluid  "
+              className={`verifiedImage `}
               alt="product image"
             />
           </div>

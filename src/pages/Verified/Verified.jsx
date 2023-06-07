@@ -5,19 +5,8 @@ import VerifiedArea from "../../Components/VerifiedArea";
 import BackgroundImage from "../../assets/verify-background.png";
 
 const Verified = () => {
-  const [isMobileScreen, setIsMobileScreen] = useState(false);
+  const isMobileScreen = window.innerWidth < 600;
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobileScreen(window.innerWidth < 575);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
   useEffect(() => {
     if (!isMobileScreen) {
       document.body.style.backgroundImage = `url(${BackgroundImage})`;
@@ -42,10 +31,10 @@ const Verified = () => {
         }`}
       >
         <div
-          className="p-xxl-5 p-xl-3 px-md-3 px-0 py-1 bg-white "
+          className=" p-xl-3 px-md-3 px-0 py-1 bg-white verifiedAreaMain"
           style={{ width: "80%", maxWidth: "100%", borderRadius:"4rem" }}
         >
-          <VerifiedArea />
+          <VerifiedArea isMobileScreen={isMobileScreen}/>
         </div>
       </div>
       <Footer />

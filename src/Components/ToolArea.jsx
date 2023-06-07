@@ -34,13 +34,13 @@ const ToolArea = () => {
     <div className="row" style={{ overflow: "hidden" }}>
       <div className="col-12">
         <h4
-          className="text-dark text-center mt-md-0 mt-sm-4 mt-0 top-heading"
+          className="text-dark pt-xxl-2 pt-0 text-center mt-md-0 mt-sm-4 mt-0 top-heading"
           style={{ fontWeight: "bold", letterSpacing: "-1px" }}
         >
           Please enter the 6 digit scratch off code to verify this product
         </h4>
         <form onSubmit={handleverify} className="text-center">
-          <div className="pt-xxl-5 pt-xl-3 pt-1 py-0 my-0 verificationText">
+          <div className="pt-xxl-4 pt-xl-3 pt-1 py-0 my-0 verificationText">
             <label
               className="form-label "
               htmlFor="verificationCode"

@@ -31,7 +31,9 @@ body {
   /* height: 70px !important; */
   width: 100px;
 }
-
+.verifiedImage{
+  max-height: 50vh;
+}
 .keysArea {
   max-height: 300px !important;
   overflow-y: scroll !important;
@@ -250,6 +252,10 @@ body {
     top: 30%;
   }
 
+ 
+  .verifiedAreaMain{
+    width: 90% !important;
+  }
   .errorText {
     font-size: 23px;
   }

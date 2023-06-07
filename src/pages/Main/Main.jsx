@@ -6,19 +6,7 @@ import HeaderLogo from "../../assets/mainPageLogo.png";
 import BackgroundImage from "../../assets/main-background.png";
 
 const Main = () => {
-  const [isMobileScreen, setIsMobileScreen] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobileScreen(window.innerWidth < 575);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  const isMobileScreen = window.innerWidth < 600;
   useEffect(() => {
     if (!isMobileScreen) {
       document.body.style.backgroundImage = `url(${BackgroundImage})`;
@@ -48,7 +36,7 @@ const Main = () => {
         }`}
       >
         <div
-          className="p-xxl-5 p-xl-4  px-md-3 px-0 py-3 bg-white toolArea-1"
+          className="p-xxl-3 p-xl-4  px-md-3 px-0 py-3 bg-white toolArea-1"
           style={{
             width: "80%",
             maxWidth: "100%",
