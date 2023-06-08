@@ -18,6 +18,7 @@ const QRarea = () => {
   const [products, setProducts] = useState([]);
   const [loadingCode, setLoadingCode] = useState(false);
 
+  const isFormValid = range && keyLength && chracterSet && batchID && postfix;
   function generateVerificationCodes() {
     setLoadingCode(true);
     const flavour = postfix.toUpperCase();
@@ -209,7 +210,7 @@ const QRarea = () => {
                         setKeys([]);
                       }}
                     >
-                      <option>Select Product</option>
+                      <option value="">Select Product</option>
                       {products?.map((data) => {
                         return <option value={data.code}>{data.name}</option>;
                       })}
@@ -226,14 +227,12 @@ const QRarea = () => {
               </div>
               {!keys.length && (
                 <button
-                  onClick={() => {
-                    generateVerificationCodes();
-                  }}
-                  disabled={loadingCode}
+                  onClick={generateVerificationCodes}
+                  disabled={!isFormValid || loadingCode}
                   type="button"
-                  class="btn btn-light text-primary ms-2 border border-1 py-4 px-4"
+                  className="btn btn-light text-primary ms-2 border border-1 py-4 px-4"
                 >
-                  <b> Generate code </b>
+                  <b>Generate code</b>
                 </button>
               )}
             </form>
