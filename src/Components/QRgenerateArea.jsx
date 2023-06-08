@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as XLSX from "xlsx/xlsx";
 import VerificationCodesTable from "./CodeTable";
 import useApi from "../hooks/useApi";
@@ -9,11 +9,13 @@ const QRarea = () => {
   const [batchID, setBatchID] = useState("");
   const [range, setRange] = useState("");
   const [postfix, setPostfix] = useState("");
+  console.log(postfix, "postfix");
   const [keyLength, setKeyLength] = useState(4);
   const [chracterSet, setChracterSet] = useState(
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789"
   );
   const [keys, setKeys] = useState([]);
+  const [products, setProducts] = useState([]);
   const [loadingCode, setLoadingCode] = useState(false);
 
   function generateVerificationCodes() {
@@ -31,6 +33,15 @@ const QRarea = () => {
     setKeys(uniqueKeys);
     setLoadingCode(false);
   }
+  const fetchProducts = async () => {
+    const res = await apiClient.get("/product");
+    if (res.status === 200) {
+      setProducts(res.data);
+    }
+  };
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   const generateRandomString = (length) => {
     const characters = chracterSet;
@@ -42,7 +53,6 @@ const QRarea = () => {
     }
     return result;
   };
-
   const exportCodes = () => {
     const data = [["Index", "Verification Code", "Batch ID"]];
     keys?.forEach((code, index) => {
@@ -187,19 +197,22 @@ const QRarea = () => {
                 <div className="col-12 mb-4">
                   <div className="form-outline">
                     <label class="form-label" for="form6Example7">
-                      <b> Postfix</b>
+                      <b>Product Name</b>
                     </label>
-                    <input
+                    <select
                       required
-                      type="text"
-                      value={postfix}
+                      name=""
+                      id=""
+                      className="form-control"
                       onChange={(e) => {
                         setPostfix(e.target.value.toUpperCase());
                         setKeys([]);
                       }}
-                      class="form-control"
-                      id="form6Example7"
-                    />
+                    >
+                      {products?.map((data) => {
+                        return <option value={data.code}>{data.name}</option>;
+                      })}
+                    </select>
                   </div>
                 </div>
               </div>

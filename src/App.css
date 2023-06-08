@@ -31,7 +31,7 @@ body {
   /* height: 70px !important; */
   width: 100px;
 }
-.verifiedImage{
+.verifiedImage {
   max-height: 50vh;
 }
 .keysArea {
@@ -39,9 +39,9 @@ body {
   overflow-y: scroll !important;
 }
 
-.verifyImg {
+/* .verifyImg {
   width: 70px !important;
-}
+} */
 .authenticText {
   font-size: 18px;
 }
@@ -233,13 +233,7 @@ body {
   }
 }
 
-@media (min-width: 320px) and (max-width: 575px) {
-  /* body {
-    overflow-y: scroll !important;
-  } */
-  /* .toolArea {
-    min-height: 100vh !important;
-  } */
+@media (max-width: 575px) {
   .toolArea-1 {
     height: 80vh;
     display: flex;
@@ -252,8 +246,7 @@ body {
     top: 30%;
   }
 
- 
-  .verifiedAreaMain{
+  .verifiedAreaMain {
     width: 90% !important;
   }
   .errorText {
@@ -262,9 +255,9 @@ body {
   .top-heading {
     font-size: 25px !important;
   }
-  .verify-btn {
-    margin-top: 30px;
-  }
+  /* .verify-btn {
+    padding-top: 10px;
+  } */
   #verificationCode {
     width: 70% !important;
   }
@@ -290,6 +283,34 @@ body {
   }
 }
 
+@media only screen and (max-width: 420px) {
+  .toolArea-1 {
+    height: 80vh;
+    display: flex;
+  }
+  .verifyImg {
+    width: 60px !important;
+  }
+  .verifiedProduct {
+    height: 300px !important;
+  }
+
+  .products {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .products img {
+    padding-top: 10px;
+    max-height: 10em !important;
+  }
+
+  .footerImg {
+    width: 50px;
+  }
+}
+
 @media (max-width: 319px) {
   .verifiedProduct {
     width: 100px !important;
@@ -300,7 +321,7 @@ body {
   }
 }
 
-@media only screen and (max-device-width: 428px) and (max-device-height: 926px) and (orientation: portrait) {
+/* @media only screen and (max-device-width: 428px) and (max-device-height: 926px) and (orientation: portrait) {
   .verifyImg {
     width: 120px !important;
   }
@@ -310,7 +331,7 @@ body {
   .textArea div {
     font-size: 15px !important;
   }
-}
+} */
 
 /* @media (max-height: 845px) {
   .toolArea {

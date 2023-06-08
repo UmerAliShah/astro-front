@@ -3,7 +3,7 @@ import apiClient from "../api/apiClient";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-const VerifiedArea = ({isMobileScreen}) => {
+const VerifiedArea = ({ isMobileScreen }) => {
   const { state } = useLocation();
   const [productData, setProductData] = useState([]);
   const [batchData, setBatchData] = useState([]);
@@ -36,6 +36,9 @@ const VerifiedArea = ({isMobileScreen}) => {
       }
     }
   };
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="row" style={{ overflow: "hidden" }}>
       <div className="col-12 gx-0">
