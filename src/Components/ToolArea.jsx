@@ -3,6 +3,8 @@ import ProductArea from "./ProductArea";
 import { useNavigate } from "react-router-dom";
 import useApi from "../hooks/useApi";
 import apiClient from "../api/apiClient";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import Button from "@mui/material/Button";
 
 const ToolArea = () => {
   const [verify, setVerify] = useState();
@@ -35,12 +37,13 @@ const ToolArea = () => {
       <div className="col-12">
         <h4
           className="text-dark pt-xxl-2 pt-0 text-center mt-md-0 mt-sm-4 mt-0 top-heading"
-          style={{ fontWeight: "bold", letterSpacing: "-1px" }}
+          style={{ fontWeight: "bold" }}
         >
-          Please enter the 6 digit scratch off code to verify this product
+          Please enter the 6 digit <br className="d-sm-none d-block" /> scratch
+          off code to verify <br className="d-sm-none d-block" /> this product
         </h4>
         <form onSubmit={handleverify} className="text-center">
-          <div className="pt-xxl-4 pt-xl-3 pt-1 py-0 my-0 verificationText">
+          <div className="pt-xxl-4 pt-3  py-0 my-0 verificationText">
             <label
               className="form-label "
               htmlFor="verificationCode"
@@ -54,7 +57,7 @@ const ToolArea = () => {
             </label>
             <div className="position-relative">
               <input
-                className={` p-4 form-control text-center   mx-auto  ${
+                className={` py-3 px-2 form-control text-center   mx-auto  ${
                   fieldError && "border border-danger "
                 }`}
                 id="verificationCode"
@@ -65,7 +68,7 @@ const ToolArea = () => {
                 onChange={(e) => setVerify(e.target.value)}
               />
               {fieldError && (
-                <div className="errorField" >
+                <div className="errorField">
                   <i class="bi bi-x-circle-fill fs-4 text-danger me-3"></i>
                 </div>
               )}
@@ -73,7 +76,7 @@ const ToolArea = () => {
           </div>
           <button
             type="submit"
-            className="mx-auto mt-4 rounded-pill px-lg-5 px-5 py-3 border-0 verify-btn"
+            className="mx-auto mt-4 rounded-pill px-lg-5 px-5 py-3 border-0 verify-btn text-dark"
             style={{ background: "rgb(249, 182, 86)", letterSpacing: "-1px" }}
           >
             <b>VERIFY</b>
