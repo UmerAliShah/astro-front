@@ -209,6 +209,7 @@ const QRarea = () => {
                         setKeys([]);
                       }}
                     >
+                      <option>Select Product</option>
                       {products?.map((data) => {
                         return <option value={data.code}>{data.name}</option>;
                       })}
