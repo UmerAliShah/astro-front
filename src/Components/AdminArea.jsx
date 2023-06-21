@@ -47,10 +47,6 @@ const AdminArea = (props) => {
     setMobileOpen(!mobileOpen);
   };
 
-  useEffect(() => {
-    navigate("/");
-  }, []);
-
   const containerDrawer =
     window !== undefined ? () => window().document.body : undefined;
 
