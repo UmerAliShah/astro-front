@@ -27,31 +27,26 @@ const App = () => {
     <Router>
       <ToastContainer />
       <Routes>
-        {!user?.isAdmin ? (
-          <Route path="/" element={<Main />} />
-        ) : (
-          <Route path="/*" element={<Admin />} />
-        )}
         <Route path="/login" element={<Login />} />
-        {user?.isAdmin ? (
-          <Route path="/admin" element={<Admin />} />
-        ) : (
-          <Route path="/*" element={<Main />} />
-        )}
-        <Route path="/verified" element={<Verified />} />
-        <Route path="/error" element={<Error />} />
-        <Route path="/already-used" element={<AlreadyUsed />} />
-        {user?.isAdmin ? (
-          <Route path="/" element={<AdminArea />}>
+
+        {user ? (
+          <Route element={<AdminArea />}>
             <Route path="/" element={<AdminMainArea />} />
             <Route path="/createProduct" element={<CreateProduct />} />
             <Route path="/generateQR" element={<QRarea />} />
             <Route path="/all-products" element={<AllProducts />} />
             <Route path="/all-keys" element={<AllKeys />} />
             <Route path="/delete-batch" element={<DeleteBatch />} />
+            <Route path="/admin" element={<Navigate to={"/"} replace />} />
           </Route>
         ) : (
-          <Route path="/*" element={<Main />} />
+          <>
+            <Route path="/" element={<Main />} />
+            <Route path="/verified" element={<Verified />} />
+            <Route path="/error" element={<Error />} />
+            <Route path="/already-used" element={<AlreadyUsed />} />
+            <Route path="/*" element={<Navigate to={"/"} replace />} />
+          </>
         )}
       </Routes>
     </Router>
