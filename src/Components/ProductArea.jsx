@@ -15,7 +15,7 @@ const ProductArea = () => {
     const res = await apiClient.get("/product");
     if (res.status === 200) {
       setLoading(false);
-      setProducts(res.data);
+      setProducts(res.data)||[];
     }
   };
 
